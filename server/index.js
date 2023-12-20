@@ -3,10 +3,10 @@ const path = require('path');
 const dotenv = require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const express = require('express');
 const PORT = process.env.PORT;
-const bodyParser = require('body-parser')
 const app = express();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 // schemas for mongodb
 const User = require("./user.js")
@@ -15,10 +15,14 @@ const User = require("./user.js")
 mongoose.connect(`mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.ffmynhi.mongodb.net/?retryWrites=true&w=majority`).then(()=>{console.log("Connected to mongodb");}).catch((error) => {console.error(error)});
 
 // middlewares
+const auth = require('./authMiddleWare')
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser')
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../build/')));
-
+app.use(cookieParser())
 // routes
 app.get("/signup", (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "signup.html"));
@@ -47,7 +51,7 @@ app.post("/signup", async (req, res) => {
         });
 
         await newUser.save();
-        res.send("Made user");
+        res.redirect("/login")
     }
 });
 
@@ -62,15 +66,22 @@ app.post("/login", async (req, res) => {
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (isPasswordValid) {
-            res.send("Logged in");
+            const token = jwt.sign({"username":user.username}, process.env.ACCESS_TOKEN_SECRET)
+            res.cookie('jwtToken', token, { httpOnly: true });
+            res.json({ success: true, redirectTo: "/home" });
         } else {
-            res.send("Invalid password");
+            res.json({ success: false, message: "Invalid Credentials" });
         }
     } else {
         // User not found
         res.send("User doesn't exist");
     }
 });
+
+app.get("/home", auth.jwtAuth, (req, res)=>{
+    res.send("haha")
+})
+
 
 // running app
 app.listen(PORT, () => {

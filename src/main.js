@@ -1,26 +1,8 @@
 import Cookies from "js-cookie";
 
-$("document").on("ready", ()=>{
-  setMonth(new Date().getMonth()+1);
-})
-
-
 $("#signOut").on("click", async()=>
 {
     console.log("log")
-})
-
-$("#dnd").on("click", ()=>{
-    const img = $("#dnd img:first-child");
-
-    if(img.attr("src") == "resources/icons/youtube-subscribe-bell-icon.png")
-    {
-        img.attr("src", "resources/icons/nonotis.png")
-    }
-    else
-    {
-        img.attr("src", "resources/icons/youtube-subscribe-bell-icon.png")
-    }
 })
 
 
@@ -58,5 +40,4 @@ async function refreshToken() {
 
 $(document).ready(()=>{
   setInterval(refreshToken, 1000*60*5);
-  createTimeTable();
 })

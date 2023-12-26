@@ -1,2 +1,2 @@
-# ctfgame
-CTF game for lanier tech fair
+# Ascent
+A todo app 

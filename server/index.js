@@ -1,6 +1,6 @@
 // dependencies
 const path = require('path');
-const dotenv = require('dotenv').config({ path: path.join(__dirname, '../.env') });
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const express = require('express');
 const PORT = process.env.PORT;
 const app = express();
@@ -14,6 +14,7 @@ const User = require("./user.js")
 // connecting to mongodb
 mongoose.connect(`mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.ffmynhi.mongodb.net/?retryWrites=true&w=majority`).then(()=>{console.log("Connected to mongodb");}).catch((error) => {console.error(error)});
 
+// 
 const auth = require('./authMiddleWare')
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser')
@@ -35,6 +36,7 @@ app.get("/login", (req, res) => {
 app.get("/home", auth.jwtAuth, (req, res)=>{
     res.sendFile(path.join(__dirname, "../build", "app.html"));
 })
+
 // signup
 app.post("/signup", async (req, res) => {
     let user = req.body.user;
@@ -98,7 +100,6 @@ app.post('/refresh', (req, res) => {
         }
     });
 });
-
 
 
 app.post("/login", async (req, res) => {

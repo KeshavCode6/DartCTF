@@ -1,42 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <title>Ascent</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&family=Roboto:wght@100;300&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Dart</title>
     <script type="module" src="login.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
-
 <body>
-    <div class="loginBg">
-        <div id="loginContainer">            
-            <div autocomplete="off" id="loginForum">
-
-                <img width="75%" height="20%">
-
-                <p>Login<br></p>
-
-                <input placeholder="Enter your email" class="borderlessInput" type="text" id="emailLogin"><br><br>
-                <input placeholder="Enter your password"class="borderlessInput" type="text" id="passwordLogin"><br><br>
-
-                <p id="ErrorMsg"></p>
-
-                <button id="login" class="button" type="submit">Login</button>
-
-            </div>
-            <div class="signupBox">
-                <p class="largeFont"><strong>New here?</strong></p>
-                <button id="signupNow" class="button" >Sign up</button>
-            </div>
-        </div>
-    </div>
+    <a href="/auth/google">Login</a>
 </body>
-
 </html>

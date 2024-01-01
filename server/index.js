@@ -53,7 +53,6 @@ app.get("/play", auth.isLoggedIn, (req, res)=>{
 })
 
 
-
 // google auth
 app.get('/auth/google',
   passport.authenticate('google', { scope:

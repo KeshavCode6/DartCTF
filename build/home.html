@@ -10,23 +10,45 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="resources/logo.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
+    <script src="login.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-    <nav>
-        <div class="logoSection">
-            <img src="resources/logo.png" class="logo">
-            <strong class="logoText">Dart CTF</strong>
+    <div id="overlay">
+        <div class="signupbox">
+            <div class="closeButton">
+                <button id="close"></button>
+            </div>
+            <div class="logoSection">
+                <img src="resources/logo.png" class="logo">
+                <strong class="logoTextOverlay">Dart CTF</strong>
+            </div>
+            <a href="/auth/google" id="signIn">
+                <img src="resources/icons/googLogo.png">
+                Login with Google
+            </a>
         </div>
-        
-        <div class="horizontalList">
-            <a href="/home"class="navSelected">Home</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="/auth/google" id="signIn">Sign in</a>
-        </div>
-    </nav>
-    <div class="mainArea">
     </div>
+    <div id="content">
+        <nav>
+            <div class="logoSection">
+                <img src="resources/logo.png" class="logo">
+                <strong class="logoText">Dart CTF</strong>
+            </div>
+    
+            <div class="horizontalList">
+                <a href="/home"class="navSelected">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a id="login">Log in</a>
+            </div>
+        </nav>
+        <div class="mainArea">
+            This is the homepage
+        </div>
+    </div>
+
 </body>
 </html>

@@ -10,7 +10,7 @@ nav
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    height: 70px;
+    height: 65px;
     background-color:brown;
     padding-left: 20px;
     align-items: center;
@@ -28,7 +28,7 @@ nav a
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 480px;
+    font-size: 17px;
     color: whitesmoke;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
@@ -45,20 +45,25 @@ nav a:hover
 
 #signIn{
     border-radius: 10px;
-    background-color:darkred;
+    background-color:white;
     border:none;
-    color: whitesmoke;
+    color: black;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: larger;
-    width: 110px;
-    height: 55px;
     transition: background-color ease 200ms;
     margin-left: 10px;
+    text-decoration: none;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    gap:5px;
 }
 
-#signIn:hover
+#signIn img
 {
-    background-color:rgb(107, 0, 0);
+    width: 30px;
+    height: 30px;
 }
 
 .navSelected
@@ -83,7 +88,6 @@ nav a:hover
     justify-content: center;
     align-items: center;
     gap: 10px;
-
 }
 
 .logoText
@@ -93,13 +97,73 @@ nav a:hover
     font-size: xx-large;
 }
 
+.logoTextOverlay
+{
+    color:rgb(0, 0, 0);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: xx-large;
+}
+
 .logo
 {
     max-width: 65px; 
+    user-select: none;
+    pointer-events: none; 
 }
 
 .mainArea
 {
     margin-top: 75px;
     padding: 5px;
+}
+
+#overlay
+{
+    top:0;
+    position: absolute;
+    z-index: 100000000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.signupbox
+{
+    background-color: aliceblue;
+    width: 500px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 30px 30px 30px;
+    border-width: 0px;
+}
+
+.closeButton
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+}
+
+#close
+{
+    background-image: url("resources/icons/close-line-icon.png");
+    width: 20px;
+    height: 20px;
+    background-color: aliceblue;
+    border:none;
+    background-size: cover;  
+    cursor: pointer;
+    transition: background-color ease 200ms;
+}
+
+#close:hover
+{
+    background-color: rgb(224, 231, 238);
 }

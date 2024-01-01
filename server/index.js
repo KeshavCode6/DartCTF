@@ -31,13 +31,28 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // routes
-app.get("/login", (req, res) => {
-    res.sendFile(path.join(__dirname, "../build", "login.html"));
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "home.html"));
 });
 
-app.get("/app", auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "app.html"));
+app.get("/home", (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "home.html"));
+});
+
+app.get("/about", (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "about.html"));
+});
+
+app.get("/contact", (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "contact.html"));
 })
+
+app.get("/play", auth.isLoggedIn, (req, res)=>{
+    console.log(req.user);
+    res.sendFile(path.join(__dirname, "../build", "play.html"));
+})
+
+
 
 // google auth
 app.get('/auth/google',
@@ -47,13 +62,13 @@ app.get('/auth/google',
 
 app.get('/auth/google/callback',
     passport.authenticate( 'google', {
-        successRedirect: '/app',
-        failureRedirect: '/login'
+        successRedirect: '/play',
+        failureRedirect: '/home'
 }));
 
 app.use('/auth/logout', (req, res)=>{
     req.session.destroy();
-    res.redirect("/login")
+    res.redirect("/home")
 })
 
 // running app

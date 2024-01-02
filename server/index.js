@@ -5,6 +5,8 @@ const express = require('express');
 const PORT = process.env.PORT;
 const app = express();
 const mongoose = require('mongoose');
+const compiler = require("compilex")
+compiler.init({stats:true});
 
 // connecting to mongodb
 mongoose.connect(`mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.ffmynhi.mongodb.net/?retryWrites=true&w=majority`).then(()=>{console.log("Connected to mongodb");}).catch((error) => {console.error(error)});
@@ -50,6 +52,27 @@ app.get("/contact", (req, res)=>{
 app.get("/play", auth.isLoggedIn, (req, res)=>{
     console.log(req.user);
     res.sendFile(path.join(__dirname, "../build", "play.html"));
+})
+
+app.get("/codeEditor", (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "codeEditorTest.html"));
+})
+
+// code running
+app.post("/codeEditor", (req, res)=>{
+    var code = req.body.code;
+    var envData = { OS : "windows"}; 
+    
+    compiler.compilePython( envData , code , function(data){
+        console.log(data);
+        if(data.output){
+            res.send(data);
+        }
+        else
+        {
+            res.send({output:"Code produced no output"})
+        }
+    });    
 })
 
 

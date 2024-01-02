@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="resources/logo.png" type="image/x-icon">
+    <title>CodeEditor - Dart CTF</title>
+
+    <script src="codemirror-5.65.16/lib/codemirror.js"> </script>
+    <script src="codemirror-5.65.16/mode/python/python.js"></script>
+    <script src="codemirror-5.65.16/addon/edit/closebrackets.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="codeEditor.js"></script>
+
+    <link rel="stylesheet" href="codemirror-5.65.16/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror-5.65.16/theme/darcula.css">
+</head>
+<body>
+  <div id="content">
+      <nav>
+          <div class="logoSection">
+              <img src="resources/logo.png" class="logo">
+              <strong class="logoText">Dart CTF</strong>
+          </div>
+  
+          <div class="horizontalList">
+              <a href="/home">Home</a>
+              <a href="/about">About</a>
+              <a href="/contact">Contact</a>
+              <a id="login" href="/auth/logout">Logout</a>
+          </div>
+      </nav>
+      <div class="mainArea">
+        <div class="codeEditor">
+            <textarea id="editor"></textarea>
+            <textarea id="output"></textarea>
+        </div>
+        <button id="run">Run</button>
+
+      </div>
+
+  </div>
+
+</body>
+</html>

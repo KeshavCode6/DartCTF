@@ -9,7 +9,10 @@ $(document).ready(()=>{
     });
     var width = window.innerWidth;
     editor.setSize(width*0.75, "500");
-    $("#run").on("click", submitCode);
+    $("#runCode").on("click", submitCode);
+    $("#outputCode").on('mousedown', function(e){
+        e.preventDefault();
+    });
 })
 
 
@@ -26,9 +29,10 @@ const submitCode = async() => {
         });
 
         var output = await output.json();
-        console.log(output);
-        $("#output").text(output.output);
+        $("#outputCode").text(output.output);
     } catch (error) {
         console.error("Error with running code:", error);
     }
 };
+
+

@@ -4,6 +4,7 @@ body
     margin: 0px;
 }
 
+/* Nav bar */
 nav 
 {
     display: flex;
@@ -21,6 +22,7 @@ nav
     user-select: none;
 }
 
+/* Any links in navbbar */
 nav a 
 {
     text-decoration: none;
@@ -43,6 +45,96 @@ nav a:hover
     background-color:rgb(131, 34, 34);
 }
 
+/* Selected option on nav bar */
+.navSelected
+{
+    background-color:darkred;
+}
+
+
+.horizontalList
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+    margin-right: 2%;
+    align-items: center;
+}
+
+/* Logo + name */
+.logoSection
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: rgb(126, 0, 0);
+    border-radius: 15px;
+    padding: 5px;
+}
+
+/*Logo texts */
+.logoText
+{
+    color: whitesmoke;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: xx-large;
+}
+
+/* Logo text in login box */
+.logoTextOverlay
+{
+    color:rgb(0, 0, 0);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: xx-large;
+}
+
+/* Logo img */
+.logo
+{
+    max-width: 55px; 
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Main area after nav bar */
+.mainArea
+{
+    margin-top: 75px;
+    padding: 5px;
+}
+
+/* Fade out screen overlay */
+#overlay
+{
+    top:0;
+    position: absolute;
+    z-index: 100000000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Login overlay box*/
+.signupbox
+{
+    background-color: aliceblue;
+    width: 500px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 30px 30px 30px;
+    border: 2px solid darkred;
+    border-width: 0px;
+}
+
+/* Sign in with button on login page */
 #signIn{
     border-radius: 10px;
     background-color:white;
@@ -66,87 +158,8 @@ nav a:hover
     height: 30px;
 }
 
-.navSelected
-{
-    background-color:darkred;
-}
-
-.horizontalList
-{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 100%;
-    margin-right: 2%;
-    align-items: center;
-}
-
-.logoSection
-{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    background-color: rgb(126, 0, 0);
-    border-radius: 15px;
-    padding: 5px;
-}
-
-.logoText
-{
-    color: whitesmoke;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: xx-large;
-}
-
-.logoTextOverlay
-{
-    color:rgb(0, 0, 0);
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: xx-large;
-}
-
-.logo
-{
-    max-width: 55px; 
-    user-select: none;
-    pointer-events: none;
-}
-
-.mainArea
-{
-    margin-top: 75px;
-    padding: 5px;
-}
-
-#overlay
-{
-    top:0;
-    position: absolute;
-    z-index: 100000000;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.signupbox
-{
-    background-color: aliceblue;
-    width: 500px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 30px 30px 30px;
-    border: 2px solid darkred;
-    border-width: 0px;
-}
-
-.closeButton
+/* Close login overlay */
+.closeButtonContainer
 {
     width: 100%;
     display: flex;
@@ -172,6 +185,7 @@ nav a:hover
     background-color: rgb(224, 231, 238);
 }
 
+/* Button to open login overlay */
 #login{
     border-radius: 10px;
     background-color:darkred;
@@ -190,20 +204,85 @@ nav a:hover
     background-color: rgb(107, 0, 0);
 }
 
+/* Home page content */
 .homeContent {
     font-family: 'Segoe UI';
     font-size: 60px;
     text-align: center;
 }
 
-#output
-{
-    width: 35%;
-}
 
+/* Code Editor*/
 .codeEditor{
     display: flex;
     flex-direction: row;
     max-width: 100%;
     padding: 20px;
+}
+
+/* Code Execution buttons*/
+.buttonArea
+{
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    background-color: darkred;
+    gap:5px;
+}
+
+#runCode, #resetCode, #editorSettings
+{
+    width: 35px;
+    height: 35px;
+    background-color: rgba(0,0,0,0);
+    border:none;
+    cursor: pointer;
+    transition: background-color ease 200ms;
+    box-sizing: border-box;
+    border: 5px solid rgba(0,0,0,0);
+}
+
+#runCode:hover, #resetCode:hover, #editorSettings:hover
+{
+    background-color: rgba(0,0,0,0.25);
+}
+
+
+#runCode
+{
+    background: url("resources/icons/run.png") no-repeat;
+    background-size: contain;
+    width: 30px;
+}
+
+#resetCode
+{
+    background: url("resources/icons/reset.png") no-repeat;
+    background-size: contain;  
+}
+
+#editorSettings
+{
+    background: url("resources/icons/settings.png") no-repeat;
+    background-size: contain;  
+}
+
+/* Code Editor output */
+.outputArea
+{
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    height: 498px;
+
+    background-color: white;
+    border:solid thin black;
+    border-color: black;
+}
+
+#outputCode
+{
+    height: 95%;
+    border:none;
+    user-select: none;
 }

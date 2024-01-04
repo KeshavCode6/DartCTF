@@ -1,8 +1,8 @@
 // dependencies
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
-const express = require('express');
 const PORT = process.env.PORT;
+const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const compiler = require("compilex")
@@ -81,6 +81,10 @@ app.get('/auth/google',
   passport.authenticate('google', { scope:
       [ 'email', 'profile' ] }
 ));
+
+app.get('/auth/loggedIn', (req, res)=>{
+    req.user? res.json({"loggedIn":true}):res.json({"loggedIn":false });
+});
 
 app.get('/auth/google/callback',
     passport.authenticate( 'google', {

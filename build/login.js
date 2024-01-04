@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("$(\"#close\").on(\"click\", ()=>{\r\n    $(\"#overlay\").css(\"display\", \"none\")\r\n})\r\n\r\n$(\"#login\").on(\"click\", ()=>{\r\n    $(\"#overlay\").css(\"display\", \"flex\")\r\n})\n\n//# sourceURL=webpack://app/./src/login.js?");
+eval("\r\n\r\n$(document).ready(()=>{\r\n    $(\"#close\").on(\"click\", ()=>{\r\n        $(\"#overlay\").css(\"display\", \"none\")\r\n    })\r\n    UpdateLoginbutton();\r\n})\r\n\r\nconst UpdateLoginbutton = ()=>{\r\n    // Updating login or logout button depending on login state\r\n    fetch('/auth/loggedIn')\r\n    .then(response => response.json())\r\n    .then(data => {\r\n      if (data[\"loggedIn\"]==true) {\r\n        $(\"#login\").attr(\"href\", \"auth/logout\")\r\n        $(\"#login\").text(\"Lougout\")\r\n        $(\"#login\").on(\"click\", ()=>{})\r\n      } else {\r\n        $(\"#login\").removeAttr(\"href\")\r\n        $(\"#login\").text(\"Login\")\r\n        $(\"#login\").on(\"click\", ()=>{\r\n            $(\"#overlay\").css(\"display\", \"flex\")\r\n        })    \r\n      }\r\n    })\r\n    .catch(error => {\r\n      console.error('Error checking authentication:', error);\r\n    });\r\n}\n\n//# sourceURL=webpack://app/./src/login.js?");
 
 /***/ })
 

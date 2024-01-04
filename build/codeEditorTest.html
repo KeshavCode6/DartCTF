@@ -35,9 +35,18 @@
       <div class="mainArea">
         <div class="codeEditor">
             <textarea id="editor"></textarea>
-            <textarea id="output"></textarea>
+            <div class="outputArea">
+                <textarea readonly id="outputCode">
+                </textarea>
+
+                <div class="buttonArea">
+                    <button id="runCode"></button>
+                    <button id="resetCode"></button>
+                    <button id="editorSettings"></button>
+                </div>
+            </div>
+
         </div>
-        <button id="run">Run</button>
 
       </div>
 

@@ -8,29 +8,66 @@
     <link rel="icon" href="resources/logo.png" type="image/x-icon">
     <title>Play - Dart CTF</title>
 </head>
-<body>
-  <div id="content">
-      <nav>
-          <div class="logoSection">
-              <img src="resources/logo.png" class="logo">
-              <strong class="logoText">Dart CTF</strong>
-          </div>
-  
-          <div class="horizontalList">
-              <a href="/home">Home</a>
-              <a href="/contact">Contact</a>
-              <a href="/play">Play</a>
-              <a id="login" href="/auth/logout">Logout</a>
-          </div>
-      </nav>
-      <div class="mainArea">
-        <h1>Web Challenges</h1>
-        <div class="challengeBtn">
-            <img src="resources/icons/unsolved.png" alt="">
-            <h4>Unsolved</h4>
-        </div>
-      </div>
-  </div>
 
+<body>
+    <div id="content">
+        <nav>
+            <div class="logoSection">
+                <img src="resources/logo.png" class="logo" alt="Logo">
+                <strong class="logoText">Dart CTF</strong>
+            </div>
+
+            <div class="horizontalList">
+                <a href="/home">Home</a>
+                <a href="/contact">Contact</a>
+                <a href="/play">Play</a>
+                <a id="login" href="/auth/logout">Logout</a>
+            </div>
+        </nav>
+        <div class="mainArea">
+            <div id="playArea">
+                <div id="leaderBoard">
+
+                </div>
+                <div id="challengeList">
+                    <div class="ChallengeType">
+                        <p>Cryptography</p>
+                        <div class="ChallengeFooter">
+                            <span id="ChallengeTypeCompletion"></span>
+                            Decrypt jumbled information utilizing the tools you learned before
+                        </div>
+                    </div>
+                    <div class="ChallengeType">
+                        <p>Cryptography</p>
+                        <div class="ChallengeFooter">
+                            <span id="ChallengeTypeCompletion"></span>
+                            Decrypt jumbled information utilizing the tools you learned before
+                        </div>
+                    </div>
+                    <div class="ChallengeType">
+                        <p>Cryptography</p>
+                        <div class="ChallengeFooter">
+                            <span id="ChallengeTypeCompletion"></span>
+                            Decrypt jumbled information utilizing the tools you learned before
+                        </div>
+                    </div>
+                    <div class="ChallengeType">
+                        <div class="ChallengeImage">
+                            <p>Cryptography</p>
+                            <div>
+                                <button>Play</button>
+                            </div>
+                        </div>
+                        <div class="ChallengeFooter">
+                            Decrypt jumbled information utilizing the tools you learned before.
+                            <span id="ChallengeTypeCompletion">0/10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </body>
+
 </html>

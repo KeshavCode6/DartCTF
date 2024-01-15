@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const compiler = require("compilex")
+const fs = require('fs');
 compiler.init({stats:true});
 
 // connecting to mongodb
@@ -55,7 +56,7 @@ app.get("/play", auth.isLoggedIn, (req, res)=>{
 })
 
 app.get("/codeEditor", (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "codeEditorTest.html"));
+    res.sendFile(path.join(__dirname, "../build", "challengeTemplate.html"));
 })
 
 // code running
@@ -72,7 +73,37 @@ app.post("/codeEditor", (req, res)=>{
         {
             res.send({output:"Code produced no output"})
         }
-    });    
+    });
+
+    fs.readdir("./../temp/", (err, files) => {
+
+        if (err) {
+          console.error("Error reading directory \"temp\"", err);
+          return;
+        }
+
+        files.forEach(file => {
+            const filePath = path.join(directoryPath, file);
+        
+            // Check if it's a file before attempting to delete
+            fs.stat(filePath, (err, stats) => {
+              if (err) {
+                console.error('Error checking file stats:', err);
+                return;
+              }
+        
+              if (stats.isFile()) {
+                // Delete the file
+                fs.unlink(filePath, err => {
+                  if (err) {
+                    console.error(`Error deleting file ${filePath}:`, err);
+                  }
+                });
+              }
+            });
+        });
+      
+    });
 })
 
 

@@ -8,14 +8,26 @@ $(document).ready(()=>{
         autoCloseBrackets:true
     });
     var width = window.innerWidth;
-    editor.setSize(width*0.75, "500");
+    editor.setSize(width*0.70, window.innerHeight*0.75);
     $("#runCode").on("click", submitCode);
     $("#outputCode").on('mousedown', function(e){
         e.preventDefault();
     });
+
+    /* Basically making the next element visible or not when clicked */
+    $(".collapsible").click(function() {
+        $(this).toggleClass("active");
+        var content = $(this).next();
+
+        if (content.is(":visible")) {
+            $(this).find("img").attr("src", "resources/icons/line-angle-down-icon.png");
+            content.slideUp();
+        } else {
+            $(this).find("img").attr("src", "resources/icons/line-angle-up-icon.png");
+            content.slideDown();
+        }
+    });
 })
-
-
 
 
 const submitCode = async() => {
@@ -34,5 +46,3 @@ const submitCode = async() => {
         console.error("Error with running code:", error);
     }
 };
-
-

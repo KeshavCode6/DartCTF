@@ -4,7 +4,7 @@ module.exports = {
   mode:"development",
   entry: {
     login: path.resolve(__dirname, './src/login.js'),
-    codeEditor: path.resolve(__dirname, './src/codeEditor.js')
+    challenge: path.resolve(__dirname, './src/challenge.js')
   },
   output: {
     path: path.resolve(__dirname, './build'),

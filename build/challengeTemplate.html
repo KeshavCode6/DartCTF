@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="resources/logo.png" type="image/x-icon">
+    <title>CodeEditor - Dart CTF</title>
+
+    <script src="codemirror-5.65.16/lib/codemirror.js"> </script>
+    <script src="codemirror-5.65.16/mode/python/python.js"></script>
+    <script src="codemirror-5.65.16/addon/edit/closebrackets.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="challenge.js"></script>
+
+    <link rel="stylesheet" href="codemirror-5.65.16/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror-5.65.16/theme/darcula.css">
+</head>
+<body>
+  <div id="content">
+      <nav>
+          <div class="logoSection">
+              <img src="resources/logo.png" class="logo">
+              <strong class="logoText">Dart CTF</strong>
+          </div>
+  
+          <div class="horizontalList">
+              <a href="/home">Home</a>
+              <a href="/contact">Contact</a>
+              <a href="/play">Play</a>
+              <a id="login" href="/auth/logout">Logout</a>
+          </div>
+      </nav>
+      <div class="mainArea">
+        <div id="challengeArea">
+            <div class="codeEditor">
+                <textarea id="editor"></textarea>
+                <div class="outputArea">
+                    <textarea readonly id="outputCode">
+                    </textarea>
+    
+                    <div class="buttonArea">
+                        <button id="runCode"></button>
+                        <button id="resetCode"></button>
+                        <button id="editorSettings"></button>
+                    </div>
+                </div>
+            </div>
+            <div id="sidebar">
+                <div id="ChallengeScrollArea">
+                    <button id="ChallengeScrollLeft"></button>
+                    <p id="challengeName">Challenge Name</p>
+                    <button id="ChallengeScrollRight"></button>
+                </div>
+
+                <div id="flagInput">
+                    <input type="text" placeholder="Enter the flag here">
+                    <button id="enterFlag"><img src="resources/icons/arrow-hunting-weapon-icon.png"> </button>
+                </div>
+
+                <button class="collapsible"><img src="resources/icons/line-angle-down-icon.png"> Case</button>
+                <div class="content">
+                    <p>Lorem ipsum...</p>
+                </div>
+                <button class="collapsible"><img src="resources/icons/line-angle-down-icon.png"> Resources</button>
+                <div class="content">
+                    <p>Lorem ipsum...</p>
+                </div>
+                
+            </div>
+
+            
+        </div>
+
+      </div>
+
+  </div>
+</body>
+</html>

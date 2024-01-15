@@ -14,7 +14,7 @@ const UpdateLoginbutton = ()=>{
     .then(data => {
       if (data["loggedIn"]==true) {
         $("#login").attr("href", "auth/logout")
-        $("#login").text("Lougout")
+        $("#login").text("Logout")
         $("#login").on("click", ()=>{})
       } else {
         $("#login").removeAttr("href")
@@ -28,5 +28,3 @@ const UpdateLoginbutton = ()=>{
       console.error('Error checking authentication:', error);
     });
 }
-
-// aaaaaaa

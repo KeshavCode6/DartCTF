@@ -28,3 +28,18 @@ const UpdateLoginbutton = ()=>{
       console.error('Error checking authentication:', error);
     });
 }
+
+$("#Play").on('click', ()=>{
+  fetch('/auth/loggedIn')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data)
+    if (data["loggedIn"]==true) {
+      window.location ="/play"
+    }
+    else
+    {
+      $("#overlay").css("display", "flex")
+    }
+  })
+})

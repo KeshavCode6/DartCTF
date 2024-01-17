@@ -23,7 +23,7 @@ passport.deserializeUser((user,done)=>{
 })
 
 const isLoggedIn = (req, res, next)=>{
-  req.user? next():res.sendStatus(401);
+  req.user? next():res.redirect("/home")
 }
 
 module.exports = {isLoggedIn}

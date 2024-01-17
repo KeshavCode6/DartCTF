@@ -59,6 +59,10 @@ app.get("/codeEditor", (req, res)=>{
     res.sendFile(path.join(__dirname, "../build", "challengeTemplate.html"));
 })
 
+app.get("/cryptography/c1", (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c1.html"));
+})
+
 // code running
 app.post("/codeEditor", (req, res)=>{
     var code = req.body.code;

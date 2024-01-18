@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
       required: true,
       unique: true
     },
+    solvedChallenges: {
+      type: [String], 
+      default: []
+    }
 });
 
 const User = mongoose.model('User', userSchema);

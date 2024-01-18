@@ -354,25 +354,29 @@ nav a:hover {
 
 /* Styling for the sidebar for challenges */
 #challengeArea {
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start; /* Adjust the alignment based on your design */
+    width: 100%;
 }
 
 #sidebar {
-    position: fixed;
-    right: 0;
     height: calc(100vh - 70px);
     width: 300px;
-    height: 100vh;
     background-color: rgb(109, 1, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto; /* Allow sidebar content to be scrollable if needed */
 }
 
+#challenge {
+    flex: 1; /* Take up all the remaining space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
 /* Styling for the challenge info area */
 #challengeName {
     color: white;
@@ -458,6 +462,13 @@ nav a:hover {
     height: 100%;
 }
 
+#flagResponse{
+    width: 55%;
+    margin-top: 5px;
+    aspect-ratio: 10/1;
+    border-radius: 10px;
+    background-color: #be2323;
+}
 /* Styling for the collapsible area */
 .collapsible {
     background-color: #570b0b;

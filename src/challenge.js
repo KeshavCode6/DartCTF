@@ -23,15 +23,18 @@ $(document).ready(()=>{
                 headers: {
                   'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({'flag':flag, "url":window.location})
+                body: JSON.stringify({'flag':flag, "url":window.location.pathname})
             })
             .then(response => response.json())
             .then(data => {
-              
+              alert(data["msg"])
             })
             .catch(error => {
               console.error('Error checking authentication:', error);
             });
+        }
+        else{
+            alert("Flag Input is empty")
         }
     });
 })

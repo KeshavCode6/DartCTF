@@ -17,10 +17,20 @@ $(document).ready(() => {
     fetch('/getLoginInfo')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
       $("#ProfileName").text(`${data["username"].givenName} ${data["username"].familyName}`)
       $("#ProfilePicture").attr('src', data['picture'])
       $("#ProfilePoints").text(`${data['points']} pts`)
+    })
+    .catch(error => {
+      console.error('Error checking authentication:', error);
+    });
+    
+    fetch('/getSolvedChallenges')
+    .then(response => response.json())
+    .then(data => {
+      data.challenges.forEach(element => {
+        $(`#${element.replace(/\//g, "")}`).removeClass("unsolved").addClass("solved")
+      });
     })
     .catch(error => {
       console.error('Error checking authentication:', error);

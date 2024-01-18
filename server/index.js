@@ -5,10 +5,9 @@ const PORT = process.env.PORT;
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const compiler = require("compilex")
 const fs = require('fs');
 const User = require('./user')
-compiler.init({stats:true});
+const Level = require('./level')
 
 // connecting to mongodb
 mongoose.connect(`mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.ffmynhi.mongodb.net/CTF?retryWrites=true&w=majority`).then(()=>{console.log("Connected to mongodb");}).catch((error) => {console.error(error)});
@@ -59,58 +58,43 @@ app.get("/codeEditor", (req, res)=>{
     res.sendFile(path.join(__dirname, "../build", "challengeTemplate.html"));
 })
 
-app.get("/cryptography/c1", (req, res)=>{
+app.get("/cryptography/c1",  auth.isLoggedIn, (req, res)=>{
     res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c1.html"));
 })
 
 //enter flag
-app.post("/enterFlag", (req, res)=>{
-})
-
-// code running
-app.post("/codeEditor", (req, res)=>{
-    var code = req.body.code;
-    var envData = { OS : "windows"}; 
-    
-    compiler.compilePython( envData , code , function(data){
-        if(data.output){
-            res.send(data);
-        }
-        else
-        {
-            res.send({output:"Code produced no output"})
-        }
-    });
-
-    fs.readdir("../temp/", (err, files) => {
-
-        if (err) {
-          console.error("Error reading directory \"temp\"", err);
-          return;
-        }
-
-        files.forEach(file => {
-            const filePath = path.join(directoryPath, file);
-        
-            // Check if it's a file before attempting to delete
-            fs.stat(filePath, (err, stats) => {
-              if (err) {
-                console.error('Error checking file stats:', err);
-                return;
-              }
-        
-              if (stats.isFile()) {
-                // Delete the file
-                fs.unlink(filePath, err => {
-                  if (err) {
-                    console.error(`Error deleting file ${filePath}:`, err);
-                  }
-                });
-              }
+app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{
+    Level.findOne({url:req.body.url}).then((level)=>{
+        if(level){
+            User.find({id:req.user.id}).then((usr)=>{
+                if(usr){
+                    if(usr[0]["solvedChallenges"].includes(req.body.url)){
+                        res.json({msg:"You did this challenge already!"})
+                        return;
+                    }
+                    if(req.body.flag==level.flag){
+                        User.findOneAndUpdate(
+                            { id: req.user.id },
+                            { $inc: { points: level.points }, $push: { solvedChallenges: req.body.url } },
+                            // Using $inc to increment the points
+                            { new: true } // To return the modified document
+                        ).then((error, success)=>{
+                            if (error) {
+                                console.log(error);
+                            } else {
+                                console.log(success);
+                            }  
+                        });
+                        res.json({msg:"Bullsye! You got it! Click the play button to go back to the home page"})
+                    }
+                    else{
+                        res.json({msg:"Incorrect, try again!"})
+                    }
+                }
             });
-        });
-      
-    });
+
+        }  
+    })
 })
 
 app.get('/getLoginInfo', auth.isLoggedIn, (req, res) =>{
@@ -131,6 +115,15 @@ app.get('/getLoginInfo', auth.isLoggedIn, (req, res) =>{
     });    
 })
 
+app.get('/getSolvedChallenges', auth.isLoggedIn, (req, res) =>{
+    User.findOne({ id:req.user.id}).then((user) => {
+        if (user) {
+
+            res.json({challenges:user.solvedChallenges})
+        }
+
+    });    
+})
 // google auth
 app.get('/auth/google',
   passport.authenticate('google', { scope:

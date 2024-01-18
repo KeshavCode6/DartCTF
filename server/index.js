@@ -7,10 +7,11 @@ const app = express();
 const mongoose = require('mongoose');
 const compiler = require("compilex")
 const fs = require('fs');
+const User = require('./user')
 compiler.init({stats:true});
 
 // connecting to mongodb
-mongoose.connect(`mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.ffmynhi.mongodb.net/?retryWrites=true&w=majority`).then(()=>{console.log("Connected to mongodb");}).catch((error) => {console.error(error)});
+mongoose.connect(`mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.ffmynhi.mongodb.net/CTF?retryWrites=true&w=majority`).then(()=>{console.log("Connected to mongodb");}).catch((error) => {console.error(error)});
 
 // middle ware
 const auth = require('./auth.js')
@@ -51,7 +52,6 @@ app.get("/contact", (req, res)=>{
 })
 
 app.get("/play", auth.isLoggedIn, (req, res)=>{
-    console.log(req.user);
     res.sendFile(path.join(__dirname, "../build", "play.html"));
 })
 
@@ -63,13 +63,16 @@ app.get("/cryptography/c1", (req, res)=>{
     res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c1.html"));
 })
 
+//enter flag
+app.post("/enterFlag", (req, res)=>{
+})
+
 // code running
 app.post("/codeEditor", (req, res)=>{
     var code = req.body.code;
     var envData = { OS : "windows"}; 
     
     compiler.compilePython( envData , code , function(data){
-        console.log(data);
         if(data.output){
             res.send(data);
         }
@@ -79,7 +82,7 @@ app.post("/codeEditor", (req, res)=>{
         }
     });
 
-    fs.readdir("./../temp/", (err, files) => {
+    fs.readdir("../temp/", (err, files) => {
 
         if (err) {
           console.error("Error reading directory \"temp\"", err);
@@ -110,6 +113,23 @@ app.post("/codeEditor", (req, res)=>{
     });
 })
 
+app.get('/getLoginInfo', auth.isLoggedIn, (req, res) =>{
+    User.findOne({ id:req.user.id}).then((user) => {
+        var points = 0;
+        if (!user) {
+            const user = new User({
+                id: req.user.id,
+                username:`${req.user.name.givenName} ${req.user.name.familyName}`,
+                points:points
+            });  
+            user.save();        
+        }
+        else{
+            points = user["points"];
+        }
+        res.json({"username":req.user.name, "picture":req.user.picture, "points":points})
+    });    
+})
 
 // google auth
 app.get('/auth/google',

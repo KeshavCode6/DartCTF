@@ -6,6 +6,7 @@ body {
 
 /* Disable image dragging and user selection */
 img {
+    pointer-events: none;
     -webkit-user-drag: none;
     user-select: none;
     -moz-user-select: none;
@@ -143,11 +144,14 @@ nav a:hover {
     padding: 10px 30px 30px 30px;
     border: 2px solid darkred;
     border-width: 0px;
+    user-select: none;
 }
 
 .caseBox{
     height: 250px;
     padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
 }
 
 /* Styling for the "Sign in with" button on the login page */
@@ -592,28 +596,26 @@ nav a:hover {
     cursor: pointer;
 }
 
-
-#ProfileInfo
-{
-    bottom:0;
+#ProfileInfo {
+    bottom: 0;
     right: 0;
     position: fixed;
     margin: 0 10px 10px 0;
-    width: 20%;
+    max-width: 20%;
     height: auto;
     display: flex;
-    align-items: center;
-    justify-content: left;
-    flex-direction: row;
+    align-items: center;  /* Keep align-items as center */
+    justify-content: space-between;  /* Change justify-content to space-between */
+    flex-direction: row;  /* Keep flex-direction as row */
     background-color: rgb(44, 1, 1);
     border-radius: 10px;
     margin-top: 10px;
     padding: 10px;
     box-sizing: border-box;
-    color:whitesmoke;
+    color: whitesmoke;
     font-size: large;
     font-weight: 400;
-    gap:10px;
+    gap: 10px;
 }
 
 #ProfilePicture
@@ -645,10 +647,15 @@ nav a:hover {
     gap:10px;
 }
 
-#ProfileName
-{
-    margin-top:3px;
-    margin-bottom: 1px;
+
+
+#ProfileName {
+    margin-top: 0;  /* Adjusted margin-top value */
+    margin-bottom: 0;  /* Adjusted margin-bottom value */
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 #ChallengeCompletionContainer{
@@ -661,6 +668,7 @@ nav a:hover {
     display: flex;
     flex-direction: row;
     justify-content: right;
+    max-width: 40%;
 }
 
 #ButtonPanel button {
@@ -690,13 +698,47 @@ nav a:hover {
 }
 
 .caseList a{
+    transition: background linear 100ms;
     aspect-ratio: 1/1;
-    width: 100%;
-    background-color: #380909;
+    max-width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border-radius: 10px;
     text-decoration: none;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
+    padding: 5px;
+    gap: 1px;;
+}
+
+.caseList a img{
+    width: 100%;
+}
+
+.unsolved{
+    background: #b7b7b7;
+}
+
+.unsolved:hover{
+    background: #a5a5a5;
+}
+
+.unsolved img{
+    content: url("resources/icons/unsolved.png");
+}
+
+.solved{
+    background:#93c47d;
+}
+
+.solved:hover{
+    background: #6f945f;
+}
+
+.solved img{
+    content: url("resources/icons/solved.png");
 }

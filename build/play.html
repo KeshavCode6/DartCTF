@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <link rel="icon" href="resources/logo.png" type="image/x-icon">
     <title>Play - Dart CTF</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="login.js"></script>
     <script src="play.js"></script>
+    <link rel="icon" href="resources/logo.png">
 </head>
 
 <body>
@@ -18,12 +18,28 @@
             <div class="closeButtonContainer">
                 <button id="closeCase"></button>
             </div>
+            <p><span id="levelType">Cryptography</span> Challenges</p>
             <div id="cryptography" class="caseList">
-                <a href="/cryptography/c1">Case 1</a>
-                <a href="/">Case 2</a>
-                <a href="/">Case 3</a>
-                <a href="/">Case 4</a>
-                <a href="/">Case 5</a>
+                <a id="cc1" class="unsolved" href="/cryptography/c1">
+                    Case 1
+                    <img>
+                </a>
+                <a id="cc2" class="unsolved" href="/cryptography/c1">
+                    Case 2
+                    <img src="resources/icons/unsolved.png">
+                </a>
+                <a id="cc3" class="unsolved" href="/cryptography/c1">
+                    Case 3
+                    <img src="resources/icons/unsolved.png">
+                </a>
+                <a id="cc4" class="unsolved" href="/cryptography/c1">
+                    Case 4
+                    <img src="resources/icons/unsolved.png">
+                </a>
+                <a id="cc5" class="unsolved" href="/cryptography/c1">
+                    Case 5
+                    <img src="resources/icons/unsolved.png">
+                </a>
             </div>
         </div>
     </div>
@@ -94,7 +110,6 @@
                     <p id="ProfileName">Keshav Shah</p>
 
                     <div id="ButtonPanel">
-                        <button id="Settings"><img src="resources/icons/setting.png"></button>
                         <button id="ShowLeaderboard"><img src="resources/icons/leaderboard.png"></button>
                     </div>
 

@@ -51,6 +51,12 @@ app.get("/contact", (req, res)=>{
 })
 
 app.get("/play", auth.isLoggedIn, (req, res)=>{
+    const user = new User({
+        id: req.user.id,
+        username:`${req.user.name.givenName} ${req.user.name.familyName}`,
+        points:0
+    });  
+    user.save();     
     res.sendFile(path.join(__dirname, "../build", "play.html"));
 })
 
@@ -68,6 +74,7 @@ app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{
         if(level){
             User.find({id:req.user.id}).then((usr)=>{
                 if(usr){
+
                     if(usr[0]["solvedChallenges"].includes(req.body.url)){
                         res.json({msg:"You did this challenge already!"})
                         return;
@@ -76,8 +83,7 @@ app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{
                         User.findOneAndUpdate(
                             { id: req.user.id },
                             { $inc: { points: level.points }, $push: { solvedChallenges: req.body.url } },
-                            // Using $inc to increment the points
-                            { new: true } // To return the modified document
+                            { new: true }
                         ).then((error, success)=>{
                             if (error) {
                                 console.log(error);
@@ -100,15 +106,7 @@ app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{
 app.get('/getLoginInfo', auth.isLoggedIn, (req, res) =>{
     User.findOne({ id:req.user.id}).then((user) => {
         var points = 0;
-        if (!user) {
-            const user = new User({
-                id: req.user.id,
-                username:`${req.user.name.givenName} ${req.user.name.familyName}`,
-                points:points
-            });  
-            user.save();        
-        }
-        else{
+        if (user) {
             points = user["points"];
         }
         res.json({"username":req.user.name, "picture":req.user.picture, "points":points})
@@ -150,3 +148,9 @@ app.listen(PORT, "0.0.0.0", () => {
     console.log(`App running on port ${PORT}`);
 });
 
+
+var createLevels = ()=>{
+    //new Level({url:"/cryptography/c1", flag:"yes", points:"100"}).save();
+}
+
+createLevels();

@@ -5,17 +5,14 @@ const levelSchema = new mongoose.Schema({
   url: {
       type: String,
       required: true,
-      unique: true
   },
   flag: {
       type: String,
       required: true,
-      unique: true
   },
   points: {
       type: Number,
       required: true,
-      unique: true
   }
 }, {
   collection: 'levels' // Set the collection name directly here

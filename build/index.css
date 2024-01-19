@@ -753,3 +753,15 @@ nav a:hover {
 .solved img{
     content: url("resources/icons/solved.png");
 }
+
+.textFileDownload {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.textFilDownload img {
+    display: block;
+}

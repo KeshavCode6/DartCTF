@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../index.css">
     <link rel="icon" href="../../resources/logo.png" type="image/x-icon">
-    <title>Cryptography C5 - Dart CTF</title>
+    <title>Web C3 - Dart CTF</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../../challenge.js"></script>
@@ -30,27 +30,48 @@
   
         <div id="challengeArea">
             <div id="challenge">
-                <p></p>
-                <a href="../../resources/challenges/all-i-want-for-christmas-is-you.mp3" download>Download this audio file and try and open it!</a>
-                <p>Encrypted Text:VGhlIExhc3QgNCB3b3JkcyBhcmUgdGhlIEZMQUch </p>
+                <div class="loginFake">
+                    <label for="username">Username:</label>
+                    <input type="text" id="user" name="username" required>
+                
+                    <label for="password">Password:</label>
+                    <input type="password" id="pass" name="password" required>
+                
+                    <button id="log" type="submit">Login</button>           
+                </div>
+
+                <script id="superSecurelogin">
+
+                    document.getElementById("log").addEventListener("click", ()=>{
+                        if(document.getElementById("user")=="admin" && document.getElementById("user")=="admin_good_password"){
+                            console.log("The flag is the admin's password")
+                        }
+                        else{
+                            console.log("Incorrect")
+                        }
+                    })
+                </script>
             </div>
             <div id="sidebar">
-                <p id="challengeName">Cryptography C5</p>
+                <p id="challengeName">Web C3</p>
                 <div id="flagInput">
                     <input id="flag" type="text" placeholder="Enter the flag here">
                     <button id="enterFlag"><img src="../../resources/icons/arrow-hunting-weapon-icon.png"> </button>
                 </div>
                 <button class="collapsible"><img src="../../resources/icons/line-angle-down-icon.png"> Case</button>
                 <div class="content">
-                    <p>One of our moles within the gang sent us the audio file and a note with some encrypted text. Can you figure out what to do?</p>
+                    <p>We found a login page the gang members have been using. It seems like the login page was rushed and prints out login information in the console. Can you exploit it?</p>
                 </div>
                 <button class="collapsible"><img src="../../resources/icons/line-angle-down-icon.png"> Resources</button>
                 <div class="content">
-                    <p>Base 64, audio analysis</p>
+                    <p>Dev Browser Tools</p>
                 </div>
             </div>            
         </div>
       </div>
   </div>
+    <div class="nothing to see here go away">
+        <!--Flag: OMjhs65CRlWJeIFY6w1u-->
+    </div>
 </body>
 </html>

@@ -623,7 +623,7 @@ nav a:hover {
     height: auto;
     display: flex;
     align-items: center;  /* Keep align-items as center */
-    justify-content: space-between;  /* Change justify-content to space-between */
+    justify-content: left;  /* Change justify-content to space-between */
     flex-direction: row;  /* Keep flex-direction as row */
     background-color: rgb(44, 1, 1);
     border-radius: 10px;
@@ -670,7 +670,7 @@ nav a:hover {
 #ProfileName {
     margin-top: 0;  /* Adjusted margin-top value */
     margin-bottom: 0;  /* Adjusted margin-bottom value */
-    width: 30%;
+    width: auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -787,4 +787,55 @@ nav a:hover {
     color: white;
     text-align: center;
     font-size: 12px;
+}
+
+.paragraph {
+    width: 50%;
+}
+
+.bankInfo {
+    font-size: 32px;
+}
+
+.bankInfo h1 {
+    color: #73a4ff;
+}
+
+.bankInfo h2 {
+    color: #339b61;
+}
+
+.loginFake{
+    width: 25%;
+    margin-top: 50px;
+    aspect-ratio: 1/1;
+    background-color: #420a0a;
+    border-radius: 10px;
+    color:white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    input {
+        width: calc(100% - 16px);
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        display: inline-block;
+    }
+
+    button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 75%;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
 }

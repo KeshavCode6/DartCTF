@@ -76,8 +76,28 @@ app.get("/cryptography/c3",  auth.isLoggedIn, (req, res)=>{
 app.get("/cryptography/c4",  auth.isLoggedIn, (req, res)=>{
     res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c4.html"));
 })
-app.get("/cryptography/c5",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c5.html"));
+
+app.get("/steganography/c1",  auth.isLoggedIn, (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/steg/c1.html"));
+})
+app.get("/steganography/c2",  auth.isLoggedIn, (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/steg/c2.html"));
+})
+app.get("/steganography/c3",  auth.isLoggedIn, (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/steg/c3.html"));
+})
+app.get("/steganography/c4",  auth.isLoggedIn, (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/steg/c4.html"));
+})
+
+app.get("/web/c1",  auth.isLoggedIn, (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/web/c1.html"));
+})
+app.get("/web/c2",  auth.isLoggedIn, (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/web/c2.html"));
+})
+app.get("/web/c3",  auth.isLoggedIn, (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/web/c3.html"));
 })
 
 //enter flag
@@ -161,8 +181,18 @@ app.listen(PORT, "0.0.0.0", () => {
 });
 
 
-var createLevels = ()=>{
-    //new Level({url:"/cryptography/c1", flag:"yes", points:"100"}).save();
-}
+// var createLevels = ()=>{
+//     // new Level({url:"/cryptography/c1", flag:"d3cod3z777", points:"100"}).save();
+//     // new Level({url:"/cryptography/c2", flag:"c3453rC1ph3r4th3duB83346", points:"200"}).save();
+//     // new Level({url:"/cryptography/c3", flag:"Qpr25z6TVaLjO4bGgQdy", points:"300"}).save();
+//     // new Level({url:"/cryptography/c4", flag:"christmas is you baby", points:"400"}).save();
+//     // new Level({url:"/steganography/c1", flag:"nowYouSeeMe", points:"500"}).save();
+//     // new Level({url:"/steganography/c2", flag:"FdzK2emXyS0nYemUXqSS", points:"600"}).save();
+//     // new Level({url:"/steganography/c3", flag:"blackLivesMatter!!", points:"700"}).save();
+//     // new Level({url:"/steganography/c4", flag:"milkjugs15", points:"800"}).save();
+//     // new Level({url:"/web/c1", flag:"OMjhs65CRlWJeIFY6w1", points:"900"}).save();
+//     //new Level({url:"/web/c2", flag:"skibi", points:"1000"}).save();
+//     // new Level({url:"/web/c3", flag:"yes", points:"12000"}).save();
+// }
 
-createLevels();
+// //createLevels();

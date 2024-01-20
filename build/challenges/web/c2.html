@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../index.css">
     <link rel="icon" href="../../resources/logo.png" type="image/x-icon">
-    <title>Cryptography C5 - Dart CTF</title>
+    <title>Web C2 - Dart CTF</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../../challenge.js"></script>
@@ -30,27 +30,41 @@
   
         <div id="challengeArea">
             <div id="challenge">
-                <p></p>
-                <a href="../../resources/challenges/all-i-want-for-christmas-is-you.mp3" download>Download this audio file and try and open it!</a>
-                <p>Encrypted Text:VGhlIExhc3QgNCB3b3JkcyBhcmUgdGhlIEZMQUch </p>
+                <div class="bankInfo">
+                    <h1>$ Dart Bank $</h1>
+                    <h2 id="bankUserName">Logged In As: Jeffrey Kensington</h2>
+                    <h2 id="bankUserBalance">Account Balance: $15.62</h2>
+                </div>
             </div>
             <div id="sidebar">
-                <p id="challengeName">Cryptography C5</p>
+                <p id="challengeName">Web C2</p>
                 <div id="flagInput">
                     <input id="flag" type="text" placeholder="Enter the flag here">
                     <button id="enterFlag"><img src="../../resources/icons/arrow-hunting-weapon-icon.png"> </button>
                 </div>
                 <button class="collapsible"><img src="../../resources/icons/line-angle-down-icon.png"> Case</button>
                 <div class="content">
-                    <p>One of our moles within the gang sent us the audio file and a note with some encrypted text. Can you figure out what to do?</p>
+                    <p>One of our executives found a banking website where the logged in user’s ID can be manipulated to get admin access. Can you figure out how to do it?</p>
                 </div>
                 <button class="collapsible"><img src="../../resources/icons/line-angle-down-icon.png"> Resources</button>
                 <div class="content">
-                    <p>Base 64, audio analysis</p>
+                    <p>Cookie Manipulation (refresh)</p>
                 </div>
             </div>            
         </div>
       </div>
   </div>
+  <script>
+
+    if (document.cookie.includes("dart_bank_user_id=0;")) {
+
+        $("#bankUserName").text("Logged In As: Administrator (Flag: KWeftMk3pTv7pKuhMWvG)");
+        $("#bankUserBalance").text("Account Balance: $1,000,000.00");
+
+    }
+
+    document.cookie = "dart_bank_user_id=285329;"
+
+  </script>
 </body>
 </html>

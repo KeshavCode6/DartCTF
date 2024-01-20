@@ -368,6 +368,7 @@ nav a:hover {
     flex-direction: column;
     align-items: center;
     overflow-y: auto; /* Allow sidebar content to be scrollable if needed */
+    color: white;
 }
 
 #challenge {
@@ -376,6 +377,12 @@ nav a:hover {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    text-align: center;
+}
+
+#challenge .iconImg {
+    height: 200px;
+    margin-top: 20px;
 }
 /* Styling for the challenge info area */
 #challengeName {
@@ -754,14 +761,30 @@ nav a:hover {
     content: url("resources/icons/solved.png");
 }
 
-.textFileDownload {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
+.sum {
+    position: relative;
+    top: -50px;
+    color: red;
 }
 
-.textFilDownload img {
-    display: block;
+.phone {
+    height: 500px;
+    margin-bottom: 50px;
+}
+
+.phonePinInput {
+    position: relative;
+    top: -410px;
+    right: -30px;
+}
+
+.phonePinInput input {
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #73a4ff;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    font-size: 12px;
 }

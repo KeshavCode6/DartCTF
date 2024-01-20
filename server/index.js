@@ -67,6 +67,18 @@ app.get("/codeEditor", (req, res)=>{
 app.get("/cryptography/c1",  auth.isLoggedIn, (req, res)=>{
     res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c1.html"));
 })
+app.get("/cryptography/c2",  auth.isLoggedIn, (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c2.html"));
+})
+app.get("/cryptography/c3",  auth.isLoggedIn, (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c3.html"));
+})
+app.get("/cryptography/c4",  auth.isLoggedIn, (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c4.html"));
+})
+app.get("/cryptography/c5",  auth.isLoggedIn, (req, res)=>{
+    res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c5.html"));
+})
 
 //enter flag
 app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{

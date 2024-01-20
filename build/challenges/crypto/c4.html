@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../index.css">
     <link rel="icon" href="../../resources/logo.png" type="image/x-icon">
-    <title>Cryptography C1 - Dart CTF</title>
+    <title>Cryptography C4 - Dart CTF</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../../challenge.js"></script>
@@ -30,28 +30,51 @@
   
         <div id="challengeArea">
             <div id="challenge">
-                <a href="https://qiwi.lol/kmVA6140-mysterious.txt">
-                    <img src="../../resources/icons/text-file.png" alt="Text File Download" class="iconImg">
-                    <h1>Click to Download Text File</h1>
-                </a>
+                <table>
+                    <thead>
+                      <tr>
+                        <th colspan="2">The table header</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>The table body</td>
+                        <td>with two columns</td>
+                      </tr>
+                    </tbody>
+                </table>
+                  
             </div>
             <div id="sidebar">
-                <p id="challengeName">Cryptography C1</p>
+                <p id="challengeName">Cryptography C4</p>
                 <div id="flagInput">
                     <input id="flag" type="text" placeholder="Enter the flag here">
                     <button id="enterFlag"><img src="../../resources/icons/arrow-hunting-weapon-icon.png"> </button>
                 </div>
                 <button class="collapsible"><img src="../../resources/icons/line-angle-down-icon.png"> Case</button>
                 <div class="content">
-                    <p>We received a text file containing encrypted text. Can you open it and figure out what it says? </p>
+                    <p>Our building's janitor forgot the password to his phone, but told us that adding these two "integers" would give the pin. Can you try to get the correct pin? </p>
                 </div>
                 <button class="collapsible"><img src="../../resources/icons/line-angle-down-icon.png"> Resources</button>
                 <div class="content">
-                    <p>Base64</p>
+                    <p>Binary</p>
                 </div>
             </div>            
         </div>
       </div>
   </div>
+
+  <script>
+    const pinInputForm = document.querySelector(".phonePinInput");
+    const pinInput = document.querySelector(".pin");
+    pinInputForm.addEventListener("submit", e => {
+        if (pinInput.value == 10643) {
+            alert("Correct PIN! Flag: Qpr25z6TVaLjO4bGgQdy");
+        }
+        else  {
+            alert("Incorrect PIN! Try again!");
+        }
+    })
+</script>
 </body>
 </html>

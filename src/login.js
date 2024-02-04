@@ -1,27 +1,22 @@
-
-
-$(document).ready(()=>{
-    $("#close").on("click", ()=>{
-        $("#overlay").css("display", "none")
-    })
-    UpdateLoginbutton();
-})
-
 const UpdateLoginbutton = ()=>{
-    // Updating login or logout button depending on login state
     fetch('/auth/loggedIn')
     .then(response => response.json())
     .then(data => {
       if (data["loggedIn"]==true) {
-        $("#login").attr("href", "auth/logout")
+        $("#dashboardLink").removeClass("nav-link disabled")
+        $("#dashboardLink").addClass("nav-link")
         $("#login").text("Logout")
-        $("#login").on("click", ()=>{})
+        $("#login").removeAttr("data-toggle");
+        $("#login").removeAttr("data-target");
+        $("#login").on("click", ()=>{window.location.href="auth/logout"})
+        console.log("in")
       } else {
-        $("#login").removeAttr("href")
+        $("#dashboardLink").removeClass("nav-link")
+        $("#dashboardLink").addClass("nav-link disabled")
         $("#login").text("Login")
-        $("#login").on("click", ()=>{
-            $("#overlay").css("display", "flex")
-        })    
+        $("#login").attr("data-toggle", "modal");
+        $("#login").attr("data-target", "#loginModal");
+        console.log("out")
       }
     })
     .catch(error => {
@@ -29,17 +24,4 @@ const UpdateLoginbutton = ()=>{
     });
 }
 
-$("#Play").on('click', ()=>{
-  fetch('/auth/loggedIn')
-  .then(response => response.json())
-  .then(data => {
-    console.log(data)
-    if (data["loggedIn"]==true) {
-      window.location ="/play"
-    }
-    else
-    {
-      $("#overlay").css("display", "flex")
-    }
-  })
-})
+UpdateLoginbutton();

@@ -29,6 +29,7 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../build/')));
+app.use('/node_modules', express.static(path.join(__dirname, '../node_modules')));
 app.use(cookieParser())
 app.use(passport.initialize())
 app.use(passport.session())
@@ -46,11 +47,8 @@ app.get("/about", (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "about.html"));
 });
 
-app.get("/contact", (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "contact.html"));
-})
 
-app.get("/play", auth.isLoggedIn, (req, res)=>{
+app.get("/dashboard", auth.isLoggedIn, (req, res)=>{
     const user = new User({
         id: req.user.id,
         username:`${req.user.name.givenName} ${req.user.name.familyName}`,
@@ -166,7 +164,7 @@ app.get('/auth/loggedIn', (req, res)=>{
 
 app.get('/auth/google/callback',
     passport.authenticate( 'google', {
-        successRedirect: '/play',
+        successRedirect: '/dashboard',
         failureRedirect: '/home'
 }));
 
@@ -180,19 +178,3 @@ app.listen(PORT, "0.0.0.0", () => {
     console.log(`App running on port ${PORT}`);
 });
 
-
-// var createLevels = ()=>{
-//     // new Level({url:"/cryptography/c1", flag:"d3cod3z777", points:"100"}).save();
-//     // new Level({url:"/cryptography/c2", flag:"c3453rC1ph3r4th3duB83346", points:"200"}).save();
-//     // new Level({url:"/cryptography/c3", flag:"Qpr25z6TVaLjO4bGgQdy", points:"300"}).save();
-//     // new Level({url:"/cryptography/c4", flag:"christmas is you baby", points:"400"}).save();
-//     // new Level({url:"/steganography/c1", flag:"nowYouSeeMe", points:"500"}).save();
-//     // new Level({url:"/steganography/c2", flag:"FdzK2emXyS0nYemUXqSS", points:"600"}).save();
-//     // new Level({url:"/steganography/c3", flag:"blackLivesMatter!!", points:"700"}).save();
-//     // new Level({url:"/steganography/c4", flag:"milkjugs15", points:"800"}).save();
-//     // new Level({url:"/web/c1", flag:"OMjhs65CRlWJeIFY6w1", points:"900"}).save();
-//     //new Level({url:"/web/c2", flag:"skibi", points:"1000"}).save();
-//     // new Level({url:"/web/c3", flag:"yes", points:"12000"}).save();
-// }
-
-// //createLevels();

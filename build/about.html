@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>About</title>
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/main.css">
@@ -64,75 +64,108 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                        <a class="nav-link" aria-current="page" href="/home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link active" href="/about">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" id="dashboardLink" href="/dashboard">Dashboard</a>
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <button id="login" class="btn btn-success" type="submit" data-toggle="modal"
-                        data-target="#loginModal">Login</button>
+                    <button id="login" class="btn btn-success" type="submit" data-toggle="modal" data-target="#loginModal">Login</button>
                 </div>
             </div>
 
         </div>
     </nav>
-    <div class="p-3 d-flex flex-column align-items-center">
-        <h3>Welcome to DART CTF!</h3>
-        <p style="max-width:90%;">
-            A CTF game crafted to engage participants in a variety of challenges. Whether you're a cybersecurity
-            enthusiast or complete begginner, DART CTF attempts to cater to all skill levels, providing an inclusive and
-            challenging environment for everyone. This project was developed for the Lanier Tech Fair 2024 by Keshav
-            Shah and Shaurya Kumar (more information available on the <a href="/about">About</a> page). Whether
-            you're a coding maestro or a complete begginner, DART CTF is your chance to showcase your skills, and
-            improve your cybersecurity knowledge. Are you ready to face the challenge? Signup today for
-            <strong>FREE</strong> with just your google account!
-        </p>
 
-
-        <div class="row justify-content-center align-items-stretch" style="pointer-events: none;">
-            <div class="col-md-3 mb-2">
-                <div class="card mr-2">
-                    <div class="card-body d-flex align-items-center flex-column">
-                        <h5 class="card-title">Learn cybersecurity</h5>
-                        <p class="card-text h-100">
-                            <img src="resources/cyber.jpg" class="img-thumbnail" alt="...">
-                            Dive into the fundamental concepts of cybersecurity, such as steganography, website manipulation, cryptography, and more. Whether you're a beginner or looking to expand your knowledge, our platform provides the resources you need to start your journey into the exciting world of cybersecurity.                        
+    <div class="container" style="padding:10px;">
+        <div class="row justify-content-center">
+            <div class="col-md-10 mb-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">What is Dart CTF?</h5>
+                        <p class="card-text">
+                            A CTF (capture the flag) game inspired by Cyberstart America. Capture the flag challenges
+                            where the player has to find a string called the flag,
+                            which they obtain by completing some challenge. In the case of Dart CTF, this includes
+                            cybersecurity related challenges, like finding a vulnerability
+                            in a website or decrypting encrypted data.
                         </p>
+                        <a href="#" class="btn btn-outline-info"  data-toggle="modal" data-target="#loginModal">Play now, for free!</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-2">
-                <div class="card mr-2">
-                    <div class="card-body d-flex align-items-center flex-column">
-                        <h5 class="card-title">Learn programming</h5>
-                        <p class="card-text h-100">
-                            <img src="resources/program.jpg" class="img-thumbnail" alt="...">
-                            Explore the basics of Python programming, including loops, logic, and more. Our platform caters to programmers of all levels, with challenges specifically designed for beginners. Whether you're just starting out or looking to sharpen your skills, join us to unlock the power of programming.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-2">
-                <div class="card mr-2">
-                    <div class="card-body d-flex align-items-center flex-column">
-                        <h5 class="card-title">Have fun and/or compete</h5>
-                        <p class="card-text h-100">
-                            <img src="resources/fun.jpg" class="img-thumbnail" alt="...">
-                            Dart CTF values learning through enjoyable exploration and engagement. Our challenges are meticulously crafted to strike a balance between fun and accomplishment, ensuring maximum fun and meaningful learning experiences! Dart CTF can be as competitive as you want, catering to those seeking a challenge.
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10 mb-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Why we made Dart CTF?</h5>
+                        <p class="card-text">
+                            Cybersecurity is a growing field in which jobs are needed in the modern world. DartCTF aims
+                            to teach people
+                            of all ages basic concepts in cryptography, steganography, and website vulnerabilities
+                            through fun challenges. Cryptography is the encryption of data and
+                            Steganography is the act of hiding data within images, and Website vulnerabilities might
+                            involve things such as an attacker gaining administrator access to the website or just
+                            performing
+                            any unauthorized actions. We believe even non-cybersecurity students should know basic
+                            concepts to avoid
+                            being the vicitim of a cyber attack, or help make report such problems to website
+                            developers.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-        
+        <div class="row justify-content-center">
+            <div class="col-md-10 mb-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Is Dart CTF for me?</h5>
+                        <p class="card-text">
+                            Dart CTF is designed to be fun and open to people of all experience levels, and is thus
+                            catered to
+                            beginners. However, Dart CTF is free regardless, and may still be enjoyable for more
+                            experienced hackers too.
+                            With the addition of the leaderboard system, Dart CTF can feel more competitive for those
+                            who want to make it that way.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10 mb-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Contact</h5>
+                        <p class="card-text">
+                            Dart CTF was created by Keshav Shah and Shaurya Kumar for the Lanier Tech fair 2024.
+                            Contact keshavrshah@gmail.com or kshaurya@gmail.com for any issues with the website or any
+                            other questions regarding the website.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Works Used</h5>
+                        <p class="card-text">
+                            All pieces of media are orginially created, or taken from the bootstrap library
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Change to npm -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

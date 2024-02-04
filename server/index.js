@@ -125,8 +125,12 @@ app.get('/getLoginInfo', auth.isLoggedIn, (req, res) =>{
         if (user) {
             points = user["points"];
         }
+        else{
+            console.log("user not found")
+        }
         res.json({"username":req.user.name, "picture":req.user.picture, "points":points})
     });    
+
 })
 
 app.get('/getSolvedChallenges', auth.isLoggedIn, (req, res) =>{

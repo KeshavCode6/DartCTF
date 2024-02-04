@@ -101,4 +101,8 @@
     background-color: #303030;
     opacity: 8%;
   }
+  .thumbnail:hover {
+    background-color: red;
+    opacity: 0.5;
+  }
   

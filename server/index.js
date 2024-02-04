@@ -4,10 +4,17 @@ require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const PORT = process.env.PORT;
 const express = require('express');
 const app = express();
+
+// mongodb
 const mongoose = require('mongoose');
-const fs = require('fs');
 const User = require('./user')
 const Level = require('./level')
+
+const challenges = {
+    "cryptography": 4,
+    "steganography": 4,
+    "web": 3
+};
 
 // connecting to mongodb
 mongoose.connect(`mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.ffmynhi.mongodb.net/CTF?retryWrites=true&w=majority`).then(()=>{console.log("Connected to mongodb");}).catch((error) => {console.error(error)});
@@ -49,55 +56,34 @@ app.get("/about", (req, res) => {
 
 
 app.get("/dashboard", auth.isLoggedIn, (req, res)=>{
-    const user = new User({
-        id: req.user.id,
-        username:`${req.user.name.givenName} ${req.user.name.familyName}`,
-        points:0
-    });  
-    user.save();     
-    res.sendFile(path.join(__dirname, "../build", "play.html"));
+    User.findOne({id:req.user.id}).then((usr)=>{
+        if (!usr)
+        {
+            const user = new User({
+                id: req.user.id,
+                username:`${req.user.name.givenName} ${req.user.name.familyName}`,
+                points:0
+            });  
+            user.save();     
+        }
+    });
+
+    res.sendFile(path.join(__dirname, "../build", "dashboard.html"));
 })
 
 app.get("/codeEditor", (req, res)=>{
     res.sendFile(path.join(__dirname, "../build", "challengeTemplate.html"));
 })
 
-app.get("/cryptography/c1",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c1.html"));
-})
-app.get("/cryptography/c2",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c2.html"));
-})
-app.get("/cryptography/c3",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c3.html"));
-})
-app.get("/cryptography/c4",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/crypto/c4.html"));
-})
 
-app.get("/steganography/c1",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/steg/c1.html"));
-})
-app.get("/steganography/c2",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/steg/c2.html"));
-})
-app.get("/steganography/c3",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/steg/c3.html"));
-})
-app.get("/steganography/c4",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/steg/c4.html"));
-})
-
-app.get("/web/c1",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/web/c1.html"));
-})
-app.get("/web/c2",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/web/c2.html"));
-})
-app.get("/web/c3",  auth.isLoggedIn, (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challenges/web/c3.html"));
-})
-
+for (const challengeType in challenges) {
+    for (let i = 1; i <= challenges[challengeType]; i++) {
+        const route = `/${challengeType}/c${i}`;
+        app.get(route, auth.isLoggedIn, (req, res) => {
+            res.sendFile(path.join(__dirname, "../build", `challenges/${challengeType}/c${i}.html`));
+        });
+    }
+}
 //enter flag
 app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{
     Level.findOne({url:req.body.url}).then((level)=>{

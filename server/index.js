@@ -54,7 +54,6 @@ app.get("/about", (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "about.html"));
 });
 
-
 app.get("/dashboard", auth.isLoggedIn, (req, res)=>{
     User.findOne({id:req.user.id}).then((usr)=>{
         if (!usr)

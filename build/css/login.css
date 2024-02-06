@@ -213,13 +213,33 @@ body {
   /* Color of the thumb on hover */
 }
 
-.profile-info {
-  font-size: 25px;
-  margin: 10px;
+#profile-name {
+  font-size: 30px;
   font-weight: 600;
+  margin-top: 15px;
 }
 
-#profile-card, #chall-card-1, #chall-card-2, #chall-card-3, #chall-card-4, #challs-header {
+#profile-pts {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(100, 0, 0);
+}
+
+#profile-username {
+  font-size: 20px;
+  color: rgb(49, 0, 0);
+  background-color: rgb(238, 174, 174);
+  padding: 4px;
+  border-radius: 15px;
+  border: 2px solid rgb(122, 55, 55);
+}
+
+#profile-card, 
+.card.h-60.b1, 
+.card.h-60.b2, 
+.card.h-60.b3, 
+.card.h-60.b4, 
+#chall-card  {
   opacity: 0;
   position: relative;
   animation: fadeInAnimation 0.5s forwards;
@@ -235,18 +255,18 @@ body {
   margin-top: 50px;
 }
 
-#chall-card-1 {
+.card.h-60.b1 {
   animation-delay: 0.3s;
 }
 
-#chall-card-2 {
+.card.h-60.b2 {
   animation-delay: 0.4s;
 }
 
-#chall-card-3 {
+.card.h-60.b3 {
   animation-delay: 0.5s;
 }
 
-#chall-card-4 {
+.card.h-60.b4 {
   animation-delay: 0.6s;
 }

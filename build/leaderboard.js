@@ -15,7 +15,7 @@
   \****************************/
 /***/ (() => {
 
-eval("const leaderboard = document.querySelector(\"#leaderboard-body\");\r\n\r\nfor (var i = 1; i <= 100; i++) {\r\n\r\n    const lbUserHtml = `\r\n    <th scope=\"row\">#${i}</th>\r\n    <td>John</td>\r\n    <td>U.S</td>\r\n    `\r\n\r\n    const element = document.createElement(\"tr\");\r\n    element.innerHTML = lbUserHtml;\r\n\r\n    leaderboard.appendChild(element);\r\n\r\n}\n\n//# sourceURL=webpack://app/./src/leaderboard.js?");
+eval("const leaderboard = document.querySelector(\"#leaderboard-body\");\r\nvar filterIndex = 0;\r\n\r\nconst filterToName = {\r\n    0:\"Top Global\",\r\n    1:\"Top Country\"\r\n}\r\nconst showLeaderboard = (filter) =>{\r\n    for (var i = 1; i <= 100; i++) {\r\n\r\n        const lbUserHtml = `\r\n        <th scope=\"row\">#${i}</th>\r\n        <td>John</td>\r\n        <td></td>\r\n        <td>U.S</td>\r\n        `\r\n    \r\n        const element = document.createElement(\"tr\");\r\n        element.innerHTML = lbUserHtml;\r\n    \r\n        leaderboard.appendChild(element);\r\n    }\r\n}\r\n\r\n$(\"#editFilters\").on(\"click\", ()=>{\r\n    filterIndex+=1;\r\n    if(filterIndex>1){\r\n        filterIndex = 0\r\n    }\r\n    $(\"#editFilters\").text(filterToName[filterIndex])\r\n\r\n\r\n    $(\"#leaderboard-body\").empty()\r\n    showLeaderboard();\r\n    fetch('/getLeaderboard')\r\n    .then(response => response.json())\r\n    .then(data => {\r\n        console.log(data)\r\n    })\r\n    .catch(error => {\r\n      console.error('Error checking authentication:', error);\r\n    });\r\n})\r\nshowLeaderboard();\n\n//# sourceURL=webpack://app/./src/leaderboard.js?");
 
 /***/ })
 

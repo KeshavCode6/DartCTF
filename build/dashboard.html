@@ -13,7 +13,8 @@
 </head>
 
 <body style="overflow: hidden;">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <script src="navbar.js"></script>
     
     <div class="container d-flex align-items-center justify-content-center mt-2" style="width: 100%">
@@ -28,6 +29,7 @@
                                     <tr>
                                         <th scope="col">Place</th>
                                         <th scope="col">Name</th>
+                                        <th scope="col">Username</th>
                                         <th scope="col">Country</th>
                                     </tr>
                                 </thead>
@@ -43,11 +45,11 @@
                     <div class="col-md-12 h-100">
                         <div class="card h-100" style="padding: 0;">
                             <div class="card h-100" id="profile-card">
-                                <div class="card-body d-flex align-items-center flex-column" style="height: 500px;">
+                                <div class="card-body d-flex align-items-center flex-column" style="height: 620px;">
                                     <div class="card-text d-flex align-items-center flex-column">
-                                        <img src="https://cdn.discordapp.com/avatars/768181277814685706/54be8bca571ece91cd47cd1e7e1d8aa1.webp?size=100" style="width:150px; height: 150px; border-radius: 1000px;" class="img-thumbnail" alt="...">
-                                        <div class="profile-info d-flex align-items-center flex-column">
-                                            <span class="profile-name">kshau</span><span class="profile-pts">147,600 pts</span>
+                                        <img id="profile-picture" src="" style="width:110px; height: 110px; border-radius: 1000px; border: solid thin grey;" id="img-thumbnail" alt="...">
+                                        <div class="profile-info d-flex align-items-center flex-column" id="profile-info">
+                                            <span id="profile-name">...</span><span id="profile-username">...</span><span id="profile-pts">...</span>
                                         </div>
                                     </div>
                                 </div>
@@ -55,26 +57,23 @@
                         </div>
                     </div>
                 </div>
-                <strong class="row justify-content-center align-items-stretch" id="challs-header">
-                    Challenges
-                </strong>
                 <div class="row justify-content-center align-items-stretch mt-2">
                     <div class="col-md-6 mb-2"> <!-- Adjusted column width -->
-                        <div class="card h-100" id="chall-card-1">
+                        <div class="card h-60 b1" id="board-card">
                             <div class="card-body d-flex align-items-center flex-column">
-                                <h5 class="card-title">Cryptography <button id="playCyber" class="btn btn-outline-primary btn-sm">Play</button></h5>
+                                <h5 class="card-title">Cryptography <a href="/challengeSelect/crypto" class="btn btn-outline-primary btn-sm">Play</a></h5>
                                 <p class="card-text d-flex justify-content-center align-items-center">
-                                    <img src="resources/challengeCategories/cryptography.png" style="width: 100%;" class="img-thumbnail" alt="...">
+                                    <img src="resources/challengeCategories/cryptography.png" style="width: 50%;" class="img-thumbnail" alt="...">
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-2"> <!-- Adjusted column width -->
-                        <div class="card h-100" id="chall-card-2">
+                        <div class="card h-60 b2" id="board-card">
                             <div class="card-body d-flex align-items-center flex-column">
-                                <h5 class="card-title">Web Manipulation <button id="playCyber" class="btn btn-outline-primary btn-sm">Play</button></h5>
+                                <h5 class="card-title">Web Manipulation  <a href="/challengeSelect/web" class="btn btn-outline-primary btn-sm">Play</a></h5>
                                 <p class="card-text d-flex justify-content-center align-items-center">
-                                    <img src="resources/challengeCategories/web-manip.jpg" style="width: 100%;" class="img-thumbnail" alt="...">
+                                    <img src="resources/challengeCategories/web-manip.jpg" style="width: 50%;" class="img-thumbnail" alt="...">
                                 </p>
                             </div>
                         </div>
@@ -82,21 +81,21 @@
                 </div>
                 <div class="row justify-content-center align-items-stretch mt-2">
                     <div class="col-md-6 mb-2"> <!-- Adjusted column width -->
-                        <div class="card h-100" id="chall-card-3">
+                        <div class="card h-60 b3" id="board-card">
                             <div class="card-body d-flex align-items-center flex-column">
-                                <h5 class="card-title">Steganography <button id="playCyber" class="btn btn-outline-primary btn-sm">Play</button></h5>
+                                <h5 class="card-title">Steganography <a href="/challengeSelect/steg" class="btn btn-outline-primary btn-sm">Play</a></h5>
                                 <p class="card-text d-flex justify-content-center align-items-center">
-                                    <img src="resources/cyber.jpg" style="width: 100%;" class="img-thumbnail" alt="...">
+                                    <img src="resources/cyber.jpg" style="width: 75%;" class="img-thumbnail" alt="...">
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-2"> <!-- Adjusted column width -->
-                        <div class="card h-100" id="chall-card-4">
+                        <div class="card h-60 b4" id="board-card">
                             <div class="card-body d-flex align-items-center flex-column">
-                                <h5 class="card-title">Programming <button id="playProgram" class="btn btn-outline-primary btn-sm">Play</button></h5>
+                                <h5 class="card-title">Programming  <a href="/challengeSelect/programming" class="btn btn-outline-primary btn-sm">Play</a></h5>
                                 <p class="card-text d-flex justify-content-center align-items-center">
-                                    <img src="resources/cyber.jpg" style="width: 100%;" class="img-thumbnail" alt="...">
+                                    <img src="resources/cyber.jpg" style="width: 75%;" class="img-thumbnail" alt="...">
                                 </p>
                             </div>
                         </div>
@@ -110,7 +109,6 @@
 
 
     <!-- Change to npm -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

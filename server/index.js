@@ -54,13 +54,30 @@ app.get("/about", (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "about.html"));
 });
 
+app.get("/challengeSelect/crypto", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", `challenges/crypto/select.html`));
+});
+app.get("/challengeSelect/steg",  auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", `challenges/steg/select.html`));
+});
+app.get("/challengeSelect/web",  auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", `challenges/web/select.html`));
+});
+app.get("/challengeSelect/programming",  auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", `challenges/programming/select.html`));
+});
+
 app.get("/dashboard", auth.isLoggedIn, (req, res)=>{
+
+    const username = `${req.user.name.givenName.charAt(0).toLowerCase()}${req.user.name.familyName.charAt(0).toLowerCase()}.${Math.round(Math.random() * 999999)}`;
+
     User.findOne({id:req.user.id}).then((usr)=>{
         if (!usr)
         {
             const user = new User({
                 id: req.user.id,
-                username:`${req.user.name.givenName} ${req.user.name.familyName}`,
+                username: username,
+                display: `${req.user.name.givenName} ${req.user.name.familyName}`,
                 points:0
             });  
             user.save();     
@@ -68,10 +85,6 @@ app.get("/dashboard", auth.isLoggedIn, (req, res)=>{
     });
 
     res.sendFile(path.join(__dirname, "../build", "dashboard.html"));
-})
-
-app.get("/codeEditor", (req, res)=>{
-    res.sendFile(path.join(__dirname, "../build", "challengeTemplate.html"));
 })
 
 
@@ -118,8 +131,21 @@ app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{
     })
 })
 
+app.get("/getLeaderboard", (req, res)=>{
+    var userData = {}
+    User.find().sort({ points: -1 }).limit(100).exec().then((users) => {
+        users.forEach(user => {
+            userData[user["username"]] = user["points"]
+        });
+        res.json(userData)
+    }).catch(error => {
+        console.error("Error retrieving leaderboard:", error);
+    });
+
+})
+
 app.get('/getLoginInfo', auth.isLoggedIn, (req, res) =>{
-    User.findOne({ id:req.user.id}).then((user) => {
+    User.findOne({id: req.user.id}).then((user) => {
         var points = 0;
         if (user) {
             points = user["points"];
@@ -127,20 +153,11 @@ app.get('/getLoginInfo', auth.isLoggedIn, (req, res) =>{
         else{
             console.log("user not found")
         }
-        res.json({"username":req.user.name, "picture":req.user.picture, "points":points})
+        res.json({"username":user["username"], "display":user["display"], "picture":req.user.picture, "points":points, "username": user["username"]});
     });    
 
 })
 
-app.get('/getSolvedChallenges', auth.isLoggedIn, (req, res) =>{
-    User.findOne({ id:req.user.id}).then((user) => {
-        if (user) {
-
-            res.json({challenges:user.solvedChallenges})
-        }
-
-    });    
-})
 // google auth
 app.get('/auth/google',
   passport.authenticate('google', { scope:

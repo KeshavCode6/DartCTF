@@ -15,7 +15,7 @@
   \*********************/
 /***/ (() => {
 
-eval("fetch('/getLoginInfo')\r\n.then(response => response.json())\r\n.then(data => {\r\n  console.log(data)\r\n})\r\n.catch(error => {\r\n  console.error('Error checking authentication:', error);\r\n});\r\n\r\nconsole.log(\"hello\")\n\n//# sourceURL=webpack://app/./src/play.js?");
+eval("fetch('/getLoginInfo')\r\n.then(response => response.json())\r\n.then(data => {\r\n  $(\"#profile-name\").text(data[\"display\"]);\r\n  $(\"#profile-pts\").text(`${data[\"points\"]} pts`);\r\n  $(\"#profile-username\").text(`@${data[\"username\"]}`);\r\n  $(\"#profile-picture\").attr(\"src\", data[\"picture\"]);\r\n})\r\n.catch(error => {\r\n  console.error('Error checking authentication:', error);\r\n});\n\n//# sourceURL=webpack://app/./src/play.js?");
 
 /***/ })
 

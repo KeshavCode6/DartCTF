@@ -1,4 +1,5 @@
 var active = ["", "", ""]
+var src = "resources/logo.svg"
 
 if(window.location.href.endsWith("/home")){
     active[0] = "active"
@@ -9,13 +10,17 @@ if(window.location.href.endsWith("/about")){
 if(window.location.href.endsWith("/dashboard")){
     active[2] = "active"
 }
+if(window.location.href.includes("/challengeSelect")){
+    active[2] = "active"
+    src = "../../resources/logo.svg"
+}
 
-console.log(active)
+
 const html = `
 <nav class="navbar navbar-expand-md navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/home">
-                <img src="resources/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+                <img src="${src}" width="30" height="30" class="d-inline-block align-top" alt="">
                 Dart CTF
             </a>
 

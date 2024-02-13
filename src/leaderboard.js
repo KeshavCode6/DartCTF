@@ -5,14 +5,17 @@ const filterToName = {
     0:"Top Global",
     1:"Top Country"
 }
-const showLeaderboard = (filter) =>{
-    for (var i = 1; i <= 100; i++) {
+const showLeaderboard = (data) =>{
+    console.log(data)
+    for (var i = 0; i <= Object.keys(data).length; i++) {
+        username = Object.keys(data)[i]
 
         const lbUserHtml = `
-        <th scope="row">#${i}</th>
-        <td>John</td>
-        <td></td>
-        <td>U.S</td>
+        <th scope="row">#${i+1}</th>
+        <td>${data[username][0]}</td>
+        <td>${username}</td>
+        <td>${data[username][1]}</td>
+        <td>US</td>
         `
     
         const element = document.createElement("tr");
@@ -20,6 +23,16 @@ const showLeaderboard = (filter) =>{
     
         leaderboard.appendChild(element);
     }
+}
+const UpdateLeaderboard = ()=>{
+    fetch('/getLeaderboard')
+    .then(response => response.json())
+    .then(data => {
+        showLeaderboard(data);
+    })
+    .catch(error => {
+      console.error('Error checking authentication:', error);
+    });
 }
 
 $("#editFilters").on("click", ()=>{
@@ -30,14 +43,10 @@ $("#editFilters").on("click", ()=>{
     $("#editFilters").text(filterToName[filterIndex])
 
     $("#leaderboard-body").empty()
-    showLeaderboard();
-    fetch('/getLeaderboard')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-    })
-    .catch(error => {
-      console.error('Error checking authentication:', error);
-    });
+    UpdateLeaderboard();
 })
-showLeaderboard();
+
+
+$(document).ready(()=>{
+    UpdateLeaderboard();
+})

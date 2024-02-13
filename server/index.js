@@ -13,7 +13,8 @@ const Level = require('./level')
 const challenges = {
     "cryptography": 4,
     "steganography": 4,
-    "web": 3
+    "web": 4,
+    "programming":4
 };
 
 // connecting to mongodb
@@ -90,8 +91,8 @@ app.get("/dashboard", auth.isLoggedIn, (req, res)=>{
 
 for (const challengeType in challenges) {
     for (let i = 1; i <= challenges[challengeType]; i++) {
-        const route = `/${challengeType}/c${i}`;
-        app.get(route, auth.isLoggedIn, (req, res) => {
+        const route = `/challengeSelect/${challengeType}/c${i}`;
+        app.get(route, (req, res) => {
             res.sendFile(path.join(__dirname, "../build", `challenges/${challengeType}/c${i}.html`));
         });
     }
@@ -135,7 +136,7 @@ app.get("/getLeaderboard", (req, res)=>{
     var userData = {}
     User.find().sort({ points: -1 }).limit(100).exec().then((users) => {
         users.forEach(user => {
-            userData[user["username"]] = user["points"]
+            userData[user["username"]] = [user["display"], user["points"]];
         });
         res.json(userData)
     }).catch(error => {
@@ -178,6 +179,11 @@ app.use('/auth/logout', (req, res)=>{
     req.session.destroy();
     res.redirect("/home")
 })
+
+
+const createLevels = ()=>{
+    Level.create({url:"/", name:"black", flag:"flag", points:"1231"})
+}
 
 // running app
 app.listen(PORT, "0.0.0.0", () => {

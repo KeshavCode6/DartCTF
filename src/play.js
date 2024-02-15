@@ -24,9 +24,15 @@ usernameRow.addEventListener("mouseleave", () => {
 })
 
 editProfileName.addEventListener("click", () => {
+
   profileName.hidden = true;
-  const editField = document.createElement("input");
-  profileNameRow.insertBefore(editField, profileNameRow.children[0]);
+
+  const editInput = document.createElement("input");
+  editInput.setAttribute("id", "profile-name");
+  editInput.setAttribute("class", "editable");
+
+  profileNameRow.insertBefore(editInput, profileNameRow.children[0]);
+
 })
 
 fetch('/getLoginInfo')

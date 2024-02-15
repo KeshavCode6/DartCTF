@@ -6,8 +6,8 @@ const filterToName = {
     1:"Top Country"
 }
 const showLeaderboard = (data) =>{
-    console.log(data)
-    for (var i = 0; i <= Object.keys(data).length; i++) {
+    for (var i = 0; i < Object.keys(data).length; i++) {
+        
         username = Object.keys(data)[i]
 
         const lbUserHtml = `

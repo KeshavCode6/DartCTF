@@ -55,21 +55,11 @@ app.get("/about", (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "about.html"));
 });
 
-app.get("/challengeSelect/crypto", auth.isLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, "../build", `challenges/crypto/select.html`));
-});
-app.get("/challengeSelect/steg",  auth.isLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, "../build", `challenges/steg/select.html`));
-});
-app.get("/challengeSelect/web",  auth.isLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, "../build", `challenges/web/select.html`));
-});
-app.get("/challengeSelect/programming",  auth.isLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, "../build", `challenges/programming/select.html`));
+app.get("/challengeSelect", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "challenges/select.html"));
 });
 
 app.get("/dashboard", auth.isLoggedIn, (req, res)=>{
-
     const username = `${req.user.name.givenName.charAt(0).toLowerCase()}${req.user.name.familyName.charAt(0).toLowerCase()}.${Math.round(Math.random() * 999999)}`;
 
     User.findOne({id:req.user.id}).then((usr)=>{
@@ -142,7 +132,24 @@ app.get("/getLeaderboard", (req, res)=>{
     }).catch(error => {
         console.error("Error retrieving leaderboard:", error);
     });
+})
 
+app.post("/getLevels", auth.isLoggedIn, (req, res)=>{
+    levelData = {}
+    names = []
+    i = 1
+    // User.find({"username":req.user.id}).then((user)=>{
+    //     user["solvedChallenges"].forEach(element => {
+    //         names.push(element)
+    //     });
+    // })
+    Level.find({"category":req.body["category"]}).then((levels)=>{
+        levels.forEach(element => {
+            levelData[`C${i}`] = {name:element["name"], points:element["points"]}
+            i+=1
+        });
+        res.json(levelData)
+    })
 })
 
 app.get('/getLoginInfo', auth.isLoggedIn, (req, res) =>{
@@ -182,11 +189,13 @@ app.use('/auth/logout', (req, res)=>{
 
 
 const createLevels = ()=>{
-    Level.create({url:"/", name:"black", flag:"flag", points:"1231"})
+    Level.create({url:"/", name:"black", flag:"flag", category:"programming", points:"1231"}),
+    Level.create({url:"/", name:"black", flag:"flag", category:"rizz", points:"1231"})
 }
 
 // running app
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`App running on port ${PORT}`);
+    //createLevels()
 });
 

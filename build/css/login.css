@@ -270,3 +270,11 @@ body {
 .card.h-60.b4 {
   animation-delay: 0.6s;
 }
+
+.editable {
+  border: "1px solid black";
+  font-size: "25px";
+  text-align: "center";
+  width: "250px";
+  border-radius: "15px";
+}

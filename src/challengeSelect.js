@@ -17,6 +17,13 @@ fetch('/getLevels', {
 .then(data => {
     totalLevels = 0
     Object.keys(data).forEach(element => {
+        console.log(data[element])
+        let img = "unsolved"
+
+        if(data[element].solved){
+            img="solved"
+        }
+
         levelSlot = `
         <div class="col-md-2 mb-2"> 
         <div class="card h-60 c1" id="chall-card" style="margin: 0px; min-width: 200px;">
@@ -26,7 +33,7 @@ fetch('/getLevels', {
                         <a id="playCyber" class="btn btn-outline-primary btn-sm" href="${`challengeSelect/programming/c${totalLevels+1}`}">Play</a>
                     </h5>
                     <p class="card-text d-flex justify-content-center align-items-center">
-                        <img src="../../resources/icons/unsolved.png" style="width: 75%;"
+                        <img src="../../resources/icons/${img}.png" style="width: 75%;"
                             class="img-thumbnail" alt="...">
                         <p class="level-name" style="font-size: 15px; font-weight: 600; margin-bottom: 0px;">${data[element]["name"]}</p>
                         <p class="level-points" style="font-size: 15px; font-weight: 600; margin-bottom: 0px; color: darkred;">${data[element]["points"]}pts</p>

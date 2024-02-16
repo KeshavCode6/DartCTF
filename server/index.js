@@ -95,7 +95,7 @@ app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{
                 if(usr){
 
                     if(usr[0]["solvedChallenges"].includes(req.body.url)){
-                        res.json({msg:"You did this challenge already!", success:true})
+                        res.json({msg:`You did this challenge already! Click <a href="/dashboard">here</a> to go back to the dashboard`, success:true})
                         return;
                     }
                     if(req.body.flag==level.flag){
@@ -110,7 +110,7 @@ app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{
                                 console.log(success);
                             }  
                         });
-                        res.json({msg:"Bullsye! You got it! Click the play button to go back to the home page", success:true})
+                        res.json({msg:`Bullsye! You got it! Click <a href="/dashboard">here</a> to go back to the dashboard`, success:true})
                     }
                     else{
                         res.json({msg:"Incorrect, try again!", success:false})
@@ -138,20 +138,27 @@ app.get("/getLeaderboard", (req, res)=>{
 })
 
 app.post("/getLevels", auth.isLoggedIn, (req, res)=>{
-    levelData = {}
-    names = []
-    i = 1
-    // User.find({"username":req.user.id}).then((user)=>{
-    //     user["solvedChallenges"].forEach(element => {
-    //         names.push(element)
-    //     });
-    // })
     Level.find({"category":req.body["category"]}).then((levels)=>{
-        levels.forEach(element => {
-            levelData[`C${i}`] = {name:element["name"], points:element["points"]}
-            i+=1
-        });
-        res.json(levelData)
+        levelData = {}
+        names = []
+        i = 1
+        User.findOne({"id":req.user.id}).then((user)=>{
+            if(user){
+                user["solvedChallenges"].forEach(element => {
+                    names.push(element.toString())
+                });
+            }
+
+            levels.forEach(element => {
+                let solved = false
+                if(names.includes(element.url)){
+                    solved = true
+                }
+                levelData[`C${i}`] = {name:element["name"], points:element["points"], solved:solved}
+                i+=1
+            });
+            res.json(levelData)
+        })
     })
 })
 
@@ -192,8 +199,10 @@ app.use('/auth/logout', (req, res)=>{
 
 
 const createLevels = ()=>{
-    Level.create({url:"/", name:"black", flag:"flag", category:"programming", points:"1231"}),
-    Level.create({url:"/", name:"black", flag:"flag", category:"rizz", points:"1231"})
+    Level.create({url:"/challengeSelect/programming/c2", name:"black", flag:"flag", category:"programming", points:"1231"})
+    Level.create({url:"/challengeSelect/programming/c3", name:"black", flag:"flag", category:"programming", points:"1231"})
+    Level.create({url:"/challengeSelect/programming/c4", name:"black", flag:"flag", category:"programming", points:"1231"})
+    Level.create({url:"/challengeSelect/programming/c5", name:"black", flag:"flag", category:"programming", points:"1231"})
 }
 
 // running app

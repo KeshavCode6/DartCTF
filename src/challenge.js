@@ -10,7 +10,23 @@ $("#enterflag").on('click', ()=>{
         })
         .then(response => response.json())
         .then(data => {
+          
+          let color = "primary"
+          $("#result").empty()
           console.log(data)
+
+          if(!data.success){
+            color = "success"
+          }
+
+          const alert = `
+            <div class="alert alert-${color} alert-dismissible fade show" role="alert">
+            ${data.msg}
+            <button type="button" class="close btn btn-close" data-dismiss="alert" aria-label="Close"></button>
+            </div>
+          `
+
+          $("#result").append(alert)
         })
         .catch(error => {
           console.error('Error checking authentication:', error);

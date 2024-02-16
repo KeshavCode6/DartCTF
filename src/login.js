@@ -8,7 +8,7 @@ const UpdateLoginbutton = ()=>{
         $("#login").text("Logout")
         $("#login").removeAttr("data-toggle");
         $("#login").removeAttr("data-target");
-        $("#login").on("click", ()=>{window.location.href="auth/logout"})
+        $("#login").attr("href", "/auth/logout")
         console.log("in")
       } else {
         $("#dashboardLink").removeClass("nav-link")
@@ -17,6 +17,7 @@ const UpdateLoginbutton = ()=>{
         $("#login").attr("data-toggle", "modal");
         $("#login").attr("data-target", "#loginModal");
         console.log("out")
+        $("#login").removeAttr("href")
       }
     })
     .catch(error => {

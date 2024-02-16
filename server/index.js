@@ -82,7 +82,7 @@ app.get("/dashboard", auth.isLoggedIn, (req, res)=>{
 for (const challengeType in challenges) {
     for (let i = 1; i <= challenges[challengeType]; i++) {
         const route = `/challengeSelect/${challengeType}/c${i}`;
-        app.get(route, (req, res) => {
+        app.get(route, auth.isLoggedIn, (req, res) => {
             res.sendFile(path.join(__dirname, "../build", `challenges/${challengeType}/c${i}.html`));
         });
     }
@@ -95,7 +95,7 @@ app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{
                 if(usr){
 
                     if(usr[0]["solvedChallenges"].includes(req.body.url)){
-                        res.json({msg:"You did this challenge already!"})
+                        res.json({msg:"You did this challenge already!", success:true})
                         return;
                     }
                     if(req.body.flag==level.flag){
@@ -110,15 +110,18 @@ app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{
                                 console.log(success);
                             }  
                         });
-                        res.json({msg:"Bullsye! You got it! Click the play button to go back to the home page"})
+                        res.json({msg:"Bullsye! You got it! Click the play button to go back to the home page", success:true})
                     }
                     else{
-                        res.json({msg:"Incorrect, try again!"})
+                        res.json({msg:"Incorrect, try again!", success:false})
                     }
                 }
             });
 
         }  
+        else{
+            res.json({msg:"Something went wrong!", success:false})
+        }
     })
 })
 

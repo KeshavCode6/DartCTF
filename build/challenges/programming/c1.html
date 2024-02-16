@@ -13,61 +13,73 @@
 </head>
 
 <body style="padding: 0; height: 100vh;">
-
     <script src="../../navbar.js"></script>
     <div class="container-fluid d-flex flex-row fill-height">
         <div class="col-3 d-flex align-items-center flex-column" style="padding: 10px; gap: 5px;">
             <div class="card h-20 w-100 b1" id="board-card">
-                <div class="card-body d-flex align-items-center justify-content-center flex-column" style="text-align: center;">
-                    <h5 class="card-title d-flex" style="gap:5px">Challenge Info<i class="bi bi-info-square-fill"></i></h5>
+                <div class="card-body d-flex align-items-center justify-content-center flex-column"
+                    style="text-align: center;">
+                    <h5 class="card-title d-flex" style="gap:5px">Challenge Info<i class="bi bi-info-square-fill"></i>
+                    </h5>
                     <p class="card-text d-flex justify-content-center align-items-center flex-column">
                         <span>
                             Programming C1: Who at the dog
                         </span>
                         <span>
                             Difficulty: Hard
-                        </span>                    
+                        </span>
+                    <div class="container-fluid">
+                        <a class="btn btn-success" href="/dashboard" aria-hidden="true"><i
+                                class="bi bi-arrow-90deg-left"></i> Back to home</a>
+                    </div>
                     </p>
                 </div>
-            </div>     
+            </div>
             <div class="card h-60 w-100 b1" id="board-card">
-                <div class="card-body d-flex align-items-center justify-content-center flex-column" style="text-align:center;">
-                    <h5 class="card-title d-flex" style="gap:5px">Case Description<i class="bi bi-file-text-fill"></i></h5>
+                <div class="card-body d-flex align-items-center justify-content-center flex-column"
+                    style="text-align:center;">
+                    <h5 class="card-title d-flex" style="gap:5px">Case Description<i class="bi bi-file-text-fill"></i>
+                    </h5>
                     <p class="card-text d-flex justify-content-center align-items-center">
-                        Our team discovered two gang members communicating with images. We were able to trace one. Can you try and find something suspicious in it?
-                        Our team discovered two gang members communicating with images. We were able to trace one. Can you try and find something suspicious in it?
-                        Our team discovered two gang members communicating with images. We were able to trace one. Can you try and find something suspicious in it?
+                        Our team discovered two gang members communicating with images. We were able to trace one. Can
+                        you try and find something suspicious in it?
+                        Our team discovered two gang members communicating with images. We were able to trace one. Can
+                        you try and find something suspicious in it?
                     </p>
                 </div>
-            </div>        
+            </div>
             <div class="card h-60 w-100 b1" id="board-card">
                 <div class="card-body d-flex align-items-center flex-column">
                     <h5 class="card-title d-flex" style="gap:5px">Resources<i class="bi bi-bar-chart-fill"></i></h5>
                     <p class="card-text d-flex">
-                        <ul>
-                            <li>Download thjis</li>
-                            <li>Web shit</li>
-                        </ul>
+                    <ul>
+                        <li>Download thjis</li>
+                        <li>Web shit</li>
+                    </ul>
                     </p>
                 </div>
-            </div>  
+            </div>
             <div class="card h-60 w-100 b1" id="board-card">
                 <div class="card-body d-flex align-items-center flex-column">
                     <h5 class="card-title d-flex" style="gap:5px">Flag<i class="bi bi-flag-fill"></i></h5>
                     <p class="card-text d-flex justify-content-center align-items-center">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Enter the flag" aria-label="Flag enter" aria-describedby="button-addon2">
-                            <button class="btn btn-success" type="button" id="button-addon2">Enter</button>
-                        </div>
-                        <p class="mb-1" style="font-size: x-small;">*If you have any issues, try common trouble shooting tips or contact us*</p>
+                    <div class="input-group mb-3">
+                        <input id="flaginput" type="text" class="form-control" placeholder="Enter the flag"
+                            aria-label="Flag enter" aria-describedby="button-addon2">
+                        <button class="btn btn-success" type="button" id="enterflag">Enter</button>
+                    </div>
+                    <p class="mb-1" style="font-size: x-small;">*If you have any issues, try common trouble shooting
+                        tips or contact us*</p>
                     </p>
                 </div>
-            </div>  
+            </div>
         </div>
-        <div class="col-9 d-flex justify-content-center align-items-center" style="height: 100%;">
-            Level
+        <div class="col-9" style="padding: 5px;">
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Sucess!</strong> Click <a href="/dashboard">here</a> to go back to the dashboard
+                <button type="button" class="close btn btn-close" data-dismiss="alert" aria-label="Close"></button>
+            </div>
         </div>
-
     </div>
 
     <!-- Change to npm -->
@@ -83,6 +95,7 @@
         crossorigin="anonymous"></script>
     <script src="../../login.js"></script>
     <script src="../../play.js"></script>
+    <script src="../../challenge.js"></script>
 </body>
 
 </html>

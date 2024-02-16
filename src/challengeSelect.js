@@ -1,13 +1,18 @@
 const urlParams = new URLSearchParams(window.location.search);
 const board = urlParams.get("board");
+const title = board.charAt(0).toUpperCase() + board.slice(1)
+
+document.title = title+" Board"
+$("#boardname").text(title)
 
 fetch('/getLevels', {
-    method: 'POST', // Assuming you're sending a POST request
+    method: 'POST',
     headers: {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({"category": board})
 })
+
 .then(response => response.json())
 .then(data => {
     totalLevels = 0
@@ -18,7 +23,7 @@ fetch('/getLevels', {
                 <div class="card-body d-flex align-items-center flex-column">
                     <h5 class="card-title d-flex justify-content-between align-items-center" id="L1C1">
                         <span style="margin-right: 12px;">${element}</span>
-                        <button id="playCyber" class="btn btn-outline-primary btn-sm">Play</button>
+                        <a id="playCyber" class="btn btn-outline-primary btn-sm" href="${`challengeSelect/programming/c${totalLevels+1}`}">Play</a>
                     </h5>
                     <p class="card-text d-flex justify-content-center align-items-center">
                         <img src="../../resources/icons/unsolved.png" style="width: 75%;"

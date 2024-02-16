@@ -37,7 +37,7 @@ const html = `
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <button id="login" class="btn btn-success" type="submit" data-toggle="modal" data-target="#loginModal">Login</button>
+                    <a id="login" class="btn btn-success" type="submit" data-toggle="modal" data-target="#loginModal">Login</a>
                 </div>
             </div>
 

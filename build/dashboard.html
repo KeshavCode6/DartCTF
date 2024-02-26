@@ -25,13 +25,15 @@
                 </div>
                 <div class="modal-body">
                     <!-- Profile editing form -->
-                    <form action="/editProfile" method="POST" enctype="multipart/form-data">
+                    <form action="/editProfile" id="editProfile" method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="profileName" class="form-label">Name</label>
                             <div class="d-flex justify-content-between" style="width: 100%;">
                                 <h5 id="profileNameEdit"></h5>
-                                <input id="profileEditInput" type="username" name="username" class="form-control" style="max-width: 55%; display: none;" laceholder="Enter new username">
-                                <button type="button" id="editName" class="btn btn-secondary p-1 d-flex justify-content-center align-items-center bi bi-pen-fill"></button>
+                                <input id="profileEditInput" type="username" name="username" class="form-control"
+                                    style="max-width: 55%; display: none;" laceholder="Enter new username">
+                                <button type="button" id="editName"
+                                    class="btn btn-secondary p-1 d-flex justify-content-center align-items-center bi bi-pen-fill"></button>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -40,7 +42,11 @@
                                 <input name="file" class="form-control" type="file" id="formFile">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="float:right;">Save changes</button>
+                        <div class="d-flex flex-column" style="float:right;">
+                            <button id="sendEditProfile" type="button" class="btn btn-primary">Save changes</button>
+                            <p id="result" style="color:green; float:right;">
+                            </p>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -89,7 +95,9 @@
                             </div>
                             <div class="d-flex justify-content-end"
                                 style="width: 100%; padding-bottom: 1%; padding-right:1%;">
-                                <button class="btn btn-secondary p-1 d-flex justify-content-center align-items-center bi bi-gear-fill" data-toggle="modal" data-target="#profileModal"></button>
+                                <button
+                                    class="btn btn-secondary p-1 d-flex justify-content-center align-items-center bi bi-gear-fill"
+                                    data-toggle="modal" data-target="#profileModal"></button>
                             </div>
                         </div>
                     </div>

@@ -247,3 +247,11 @@ body {
   width: "250px";
   border-radius: "15px";
 }
+
+.chall-divider {
+  border-left: 6px solid #800e13;
+  height: calc(100% - 50px);
+  position: absolute;
+  left: 25%;
+  top: 50px;
+}

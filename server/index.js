@@ -4,6 +4,7 @@ require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const PORT = process.env.PORT;
 const express = require('express');
 const app = express();
+const fs = require('fs');
 
 // mongodb
 const mongoose = require('mongoose');
@@ -60,7 +61,7 @@ app.get("/challengeSelect", auth.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "select.html"));
 });
 
-app.get("/challenge", auth.isLoggedIn, (req, res) => {
+app.get("/challenge",auth.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "challenge.html"));
 });
 
@@ -72,7 +73,7 @@ app.get("/dashboard", auth.isLoggedIn, (req, res) => {
                 id: req.user.id,
                 username: username,
                 display: `${req.user.name.givenName} ${req.user.name.familyName}`,
-                picture:req.user.picture,
+                picture: req.user.picture,
                 points: 0
             });
             user.save();
@@ -83,17 +84,10 @@ app.get("/dashboard", auth.isLoggedIn, (req, res) => {
 })
 
 
-for (const challengeType in challenges) {
-    for (let i = 1; i <= challenges[challengeType]; i++) {
-        const route = `/challengeSelect/${challengeType}/c${i}`;
-        app.get(route, auth.isLoggedIn, (req, res) => {
-            res.sendFile(path.join(__dirname, "../build", `challenges/${challengeType}/c${i}.html`));
-        });
-    }
-}
 //enter flag
 app.post("/enterFlag", auth.isLoggedIn, (req, res) => {
-    Level.findOne({ url: req.body.url }).then((level) => {
+    let url = "/"+req.body.url.split("//")[1].split("/")[1]
+    Level.findOne({ url: url}).then((level) => {
         if (level) {
             User.find({ id: req.user.id }).then((usr) => {
                 if (usr) {
@@ -173,11 +167,16 @@ app.post("/getLevelData", auth.isLoggedIn, (req, res) => {
     Level.find({ "category": req.body["category"] }).then((levels) => {
         levels.forEach(level => {
             if (levels.url == req.body["url"]) {
-                level["flag"] = "n/a"
+                level["flag"] = undefined
                 res.json(level);
             }
         });
     })
+})
+
+app.post("/getLevelHtml", auth.isLoggedIn, (req, res) => {
+    const {board, chall} = req.body;
+    res.sendFile(path.join(__dirname, "../build", `/challenges/${board}${chall}.html`));
 })
 
 app.post('/editProfile', auth.isLoggedIn, upload.single("file"), (req, res) => {
@@ -192,19 +191,32 @@ app.post('/editProfile', auth.isLoggedIn, upload.single("file"), (req, res) => {
     }
 
     let update = {}
-    if(editFile){update.picture = "../"+editFile}
-    if(editUser){update.display = editUser}
+    if (editFile) { update.picture = "../" + editFile }
+    if (editUser) { update.display = editUser }
+    User.findOne({ "id": req.user.id }).then((user) => {
+        if (user) {
+            // Check if the user's profile picture exists before attempting to delete it
+            if (user.picture && fs.existsSync(user.picture)) {
+                fs.unlinkSync(user.picture);
+            }
 
-    User.findOneAndUpdate({id:req.user.id}, update, {new:true}).then(updatedUser => {
-        if (updatedUser) {
-            console.log("Updated user:", updatedUser);
-            res.redirect("/dashboard")
-        } 
+            User.findOneAndUpdate({ id: req.user.id }, update, { new: true }).then(updatedUser => {
+                if (updatedUser) {
+                    res.redirect("/dashboard")
+                }
+            }).catch(error => {
+                console.error("Error:", error);
+                res.status(500).send("Internal Server Error");
+            });
+        } else {
+            res.status(404).send("User not found");
+        }
     }).catch(error => {
         console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
     });
-
 });
+
 app.get('/getLoginInfo', auth.isLoggedIn, (req, res) => {
     User.findOne({ id: req.user.id }).then((user) => {
         var points = 0;

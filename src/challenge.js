@@ -2,7 +2,11 @@ const urlParams = new URLSearchParams(window.location.search);
 const board = urlParams.get("board");
 const challId = parseInt(urlParams.get("id"));
 
-console.log("monke");
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+document.title = `${capitalizeFirstLetter(board)} C${challId}`;
 
 fetch('/getLevelData', {
   method: 'POST',
@@ -16,18 +20,29 @@ fetch('/getLevelData', {
   console.log(data);
 
   const {name, challId, difficulty, desc, res} = data;
-  $(".challname").text(`${board} C${challId}`);
-  $(".challdiff").text(`Difficulty: ${difficulty}`);
+  $(".challname").text(`${capitalizeFirstLetter(board)} C${challId}`);
+  $(".challdiff").text(`Difficulty: ${capitalizeFirstLetter(difficulty)}`);
   $("#challdesc").text(desc);
   
   for (var r of res) {
     const ulItem = document.createElement("li");
-    ulItem.text(r);
+    ulItem.innerText = r;
     $(".challres").append(ulItem);
   }
 
 })
 
+fetch('/getLevelHtml', {
+  method: 'POST',
+  headers: {
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({"board": board, "chall": challId})
+})
+.then(response => response.text())
+.then(data => {
+  $("#result").html(data);
+})
 
 $("#enterflag").on('click', ()=>{
     var flag = $("#flaginput").val();
@@ -37,7 +52,7 @@ $("#enterflag").on('click', ()=>{
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({'flag':flag, "url":window.location.pathname})
+            body: JSON.stringify({'flag':flag, "url":window.location.href})
         })
         .then(response => response.json())
         .then(data => {

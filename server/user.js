@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
     points: {
       type:Number,
       required: true,
+    }, 
+    picture:{
+      type:String,
+      required: true, 
     },
     solvedChallenges: {
       type: [String], 

@@ -1,3 +1,34 @@
+const urlParams = new URLSearchParams(window.location.search);
+const board = urlParams.get("board");
+const challId = parseInt(urlParams.get("id"));
+
+console.log("monke");
+
+fetch('/getLevelData', {
+  method: 'POST',
+  headers: {
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({"category": board, "challId": challId})
+})
+.then(response => response.json())
+.then(data => {
+  console.log(data);
+
+  const {name, challId, difficulty, desc, res} = data;
+  $(".challname").text(`${board} C${challId}`);
+  $(".challdiff").text(`Difficulty: ${difficulty}`);
+  $("#challdesc").text(desc);
+  
+  for (var r of res) {
+    const ulItem = document.createElement("li");
+    ulItem.text(r);
+    $(".challres").append(ulItem);
+  }
+
+})
+
+
 $("#enterflag").on('click', ()=>{
     var flag = $("#flaginput").val();
     if(flag.length>0){

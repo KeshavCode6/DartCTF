@@ -9,16 +9,15 @@ const app = express();
 const mongoose = require('mongoose');
 const User = require('./user')
 const Level = require('./level')
-
 const challenges = {
     "cryptography": 4,
     "steganography": 4,
     "web": 4,
-    "programming":4
+    "programming": 4
 };
 
 // connecting to mongodb
-mongoose.connect(`mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.ffmynhi.mongodb.net/CTF?retryWrites=true&w=majority`).then(()=>{console.log("Connected to mongodb");}).catch((error) => {console.error(error)});
+mongoose.connect(`mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.ffmynhi.mongodb.net/CTF?retryWrites=true&w=majority`).then(() => { console.log("Connected to mongodb"); }).catch((error) => { console.error(error) });
 
 // middle ware
 const auth = require('./auth.js')
@@ -26,18 +25,20 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const session = require('express-session')
+const upload = require("./upload.js")
 
 app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
 }))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../build/')));
 app.use('/node_modules', express.static(path.join(__dirname, '../node_modules')));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use(cookieParser())
 app.use(passport.initialize())
 app.use(passport.session())
@@ -56,22 +57,25 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/challengeSelect", auth.isLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, "../build", "challenges/select.html"));
+    res.sendFile(path.join(__dirname, "../build", "select.html"));
 });
 
-app.get("/dashboard", auth.isLoggedIn, (req, res)=>{
-    const username = `${req.user.name.givenName.charAt(0).toLowerCase()}${req.user.name.familyName.charAt(0).toLowerCase()}.${Math.round(Math.random() * 999999)}`;
+app.get("/challenge", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "challenge.html"));
+});
 
-    User.findOne({id:req.user.id}).then((usr)=>{
-        if (!usr)
-        {
+app.get("/dashboard", auth.isLoggedIn, (req, res) => {
+    User.findOne({ id: req.user.id }).then((usr) => {
+        if (!usr) {
+            const username = `${req.user.name.givenName.charAt(0).toLowerCase()}${req.user.name.familyName.charAt(0).toLowerCase()}.${Math.round(Math.random() * 999999)}`;
             const user = new User({
                 id: req.user.id,
                 username: username,
                 display: `${req.user.name.givenName} ${req.user.name.familyName}`,
-                points:0
-            });  
-            user.save();     
+                picture:req.user.picture,
+                points: 0
+            });
+            user.save();
         }
     });
 
@@ -88,44 +92,44 @@ for (const challengeType in challenges) {
     }
 }
 //enter flag
-app.post("/enterFlag", auth.isLoggedIn, (req, res)=>{
-    Level.findOne({url:req.body.url}).then((level)=>{
-        if(level){
-            User.find({id:req.user.id}).then((usr)=>{
-                if(usr){
+app.post("/enterFlag", auth.isLoggedIn, (req, res) => {
+    Level.findOne({ url: req.body.url }).then((level) => {
+        if (level) {
+            User.find({ id: req.user.id }).then((usr) => {
+                if (usr) {
 
-                    if(usr[0]["solvedChallenges"].includes(req.body.url)){
-                        res.json({msg:`You did this challenge already! Click <a href="/dashboard">here</a> to go back to the dashboard`, success:true})
+                    if (usr[0]["solvedChallenges"].includes(req.body.url)) {
+                        res.json({ msg: `You did this challenge already! Click <a href="/dashboard">here</a> to go back to the dashboard`, success: true })
                         return;
                     }
-                    if(req.body.flag==level.flag){
+                    if (req.body.flag == level.flag) {
                         User.findOneAndUpdate(
                             { id: req.user.id },
                             { $inc: { points: level.points }, $push: { solvedChallenges: req.body.url } },
                             { new: true }
-                        ).then((error, success)=>{
+                        ).then((error, success) => {
                             if (error) {
                                 console.log(error);
                             } else {
                                 console.log(success);
-                            }  
+                            }
                         });
-                        res.json({msg:`Bullsye! You got it! Click <a href="/dashboard">here</a> to go back to the dashboard`, success:true})
+                        res.json({ msg: `Bullsye! You got it! Click <a href="/dashboard">here</a> to go back to the dashboard`, success: true })
                     }
-                    else{
-                        res.json({msg:"Incorrect, try again!", success:false})
+                    else {
+                        res.json({ msg: "Incorrect, try again!", success: false })
                     }
                 }
             });
 
-        }  
-        else{
-            res.json({msg:"Something went wrong!", success:false})
+        }
+        else {
+            res.json({ msg: "Something went wrong!", success: false })
         }
     })
 })
 
-app.get("/getLeaderboard", (req, res)=>{
+app.get("/getLeaderboard", (req, res) => {
     var userData = {}
     User.find().sort({ points: -1 }).limit(100).exec().then((users) => {
         users.forEach(user => {
@@ -137,72 +141,113 @@ app.get("/getLeaderboard", (req, res)=>{
     });
 })
 
-app.post("/getLevels", auth.isLoggedIn, (req, res)=>{
-    Level.find({"category":req.body["category"]}).then((levels)=>{
+app.post("/getLevels", auth.isLoggedIn, (req, res) => {
+    Level.find({ "category": req.body["category"] }).then((levels) => {
         levelData = {}
         names = []
         i = 1
-        User.findOne({"id":req.user.id}).then((user)=>{
-            if(user){
+        User.findOne({ "id": req.user.id }).then((user) => {
+            if (user) {
                 user["solvedChallenges"].forEach(element => {
                     names.push(element.toString())
                 });
             }
+            completion = 0
 
             levels.forEach(element => {
                 let solved = false
-                if(names.includes(element.url)){
+                if (names.includes(element.url)) {
                     solved = true
+                    completion += 1;
                 }
-                levelData[`C${i}`] = {name:element["name"], points:element["points"], solved:solved}
-                i+=1
+                levelData[`C${i}`] = { name: element["name"], points: element["points"], solved: solved }
+                i += 1
             });
+            levelData["completion"] = (completion / levels.length) * 100
             res.json(levelData)
         })
     })
 })
 
-app.get('/getLoginInfo', auth.isLoggedIn, (req, res) =>{
-    User.findOne({id: req.user.id}).then((user) => {
+app.post("/getLevelData", auth.isLoggedIn, (req, res) => {
+    Level.find({ "category": req.body["category"] }).then((levels) => {
+        levels.forEach(level => {
+            if (levels.url == req.body["url"]) {
+                level["flag"] = "n/a"
+                res.json(level);
+            }
+        });
+    })
+})
+
+app.post('/editProfile', auth.isLoggedIn, upload.single("file"), (req, res) => {
+    let editFile;
+    let editUser;
+
+    if (req.file) {
+        editFile = req.file.path
+    }
+    if (req.body.username.length > 1) {
+        editUser = req.body.username
+    }
+
+    let update = {}
+    if(editFile){update.picture = "../"+editFile}
+    if(editUser){update.display = editUser}
+
+    User.findOneAndUpdate({id:req.user.id}, update, {new:true}).then(updatedUser => {
+        if (updatedUser) {
+            console.log("Updated user:", updatedUser);
+            res.redirect("/dashboard")
+        } 
+    }).catch(error => {
+        console.error("Error:", error);
+    });
+
+});
+app.get('/getLoginInfo', auth.isLoggedIn, (req, res) => {
+    User.findOne({ id: req.user.id }).then((user) => {
         var points = 0;
         if (user) {
             points = user["points"];
         }
-        else{
+        else {
             console.log("user not found")
         }
-        res.json({"username":user["username"], "display":user["display"], "picture":req.user.picture, "points":points, "username": user["username"]});
-    });    
+        res.json({ "username": user["username"], "display": user["display"], "picture": user["picture"], "points": points, "username": user["username"] });
+    });
 
 })
 
 // google auth
 app.get('/auth/google',
-  passport.authenticate('google', { scope:
-      [ 'email', 'profile' ] }
-));
+    passport.authenticate('google', {
+        scope:
+            ['email', 'profile']
+    }
+    ));
 
-app.get('/auth/loggedIn', (req, res)=>{
-    req.user? res.json({"loggedIn":true}):res.json({"loggedIn":false });
+app.get('/auth/loggedIn', (req, res) => {
+    req.user ? res.json({ "loggedIn": true }) : res.json({ "loggedIn": false });
 });
 
 app.get('/auth/google/callback',
-    passport.authenticate( 'google', {
+    passport.authenticate('google', {
         successRedirect: '/dashboard',
         failureRedirect: '/home'
-}));
+    }));
 
-app.use('/auth/logout', (req, res)=>{
+app.use('/auth/logout', (req, res) => {
     req.session.destroy();
     res.redirect("/home")
 })
 
 
-const createLevels = ()=>{
-    Level.create({url:"/challengeSelect/programming/c2", name:"black", flag:"flag", category:"programming", points:"1231"})
-    Level.create({url:"/challengeSelect/programming/c3", name:"black", flag:"flag", category:"programming", points:"1231"})
-    Level.create({url:"/challengeSelect/programming/c4", name:"black", flag:"flag", category:"programming", points:"1231"})
-    Level.create({url:"/challengeSelect/programming/c5", name:"black", flag:"flag", category:"programming", points:"1231"})
+const createLevels = () => {
+    Level.create({ url: "/challengeSelect/programming/c2", name: "black", flag: "flag", category: "programming", points: "1231" })
+    Level.create({ url: "/challengeSelect/programming/c3", name: "black", flag: "flag", category: "programming", points: "1231" })
+    Level.create({ url: "/challengeSelect/programming/c4", name: "black", flag: "flag", category: "programming", points: "1231" })
+    Level.create({ url: "/challengeSelect/programming/c5", name: "black", flag: "flag", category: "programming", points: "1231" })
 }
 
 // running app

@@ -13,74 +13,7 @@
 </head>
 
 <body>
-    <div class="modal" id="loginModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Login</h5>
-                    <button class="btn btn-close" type="submit" data-toggle="modal" data-target="#loginModal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row justify-content-center" style="width: 95%;">
-                        <div class="col-md-3">
-                            <button class="gsi-material-button" onclick="window.location.href='/auth/google'">
-                                <div class="gsi-material-button-state"></div>
-                                <div class="gsi-material-button-content-wrapper">
-                                    <div class="gsi-material-button-icon">
-                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
-                                            <path fill="#EA4335"
-                                                d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z">
-                                            </path>
-                                            <path fill="#4285F4"
-                                                d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z">
-                                            </path>
-                                            <path fill="#FBBC05"
-                                                d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z">
-                                            </path>
-                                            <path fill="#34A853"
-                                                d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z">
-                                            </path>
-                                            <path fill="none" d="M0 0h48v48H0z"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="gsi-material-button-contents">Sign in with Google</span>
-                                    <span style="display: none;">Sign in with Google</span>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <nav class="navbar navbar-expand-md navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/home">
-                <img src="resources/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-                Dart CTF
-            </a>
-
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" id="dashboardLink" href="/dashboard">Dashboard</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <button id="login" class="btn btn-success" type="submit" data-toggle="modal" data-target="#loginModal">Login</button>
-                </div>
-            </div>
-
-        </div>
-    </nav>
+    <script src="js/navbar.js"></script>
 
     <div class="container" style="padding:10px;">
         <div class="row justify-content-center">
@@ -140,6 +73,20 @@
             </div>
         </div>
         <div class="row justify-content-center">
+            <div class="col-md-10 mb-2 c3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">How we made Dart CTF</h5>
+                        <p class="card-text">
+                            Dart CTF was created using <strong>html, css</strong> and <strong>js</strong>. We utilize <strong>bootstrap</strong> as a frontend library, and use <strong>Node JS</strong> for our backend. We 
+                            used a couple libraries, such as passport (authentication), moongoose (communication with database), express (web server), and more in order to create our backend. We choose <strong>MongoDB</strong>, a no SQL database, 
+                            as our database provider. Dart CTF is hosted on a VPS from [], and uses a domain bought from godaddy
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
             <div class="col-md-10 mb-2 c4">
                 <div class="card">
                     <div class="card-body">
@@ -148,18 +95,6 @@
                             <strong>Dart CTF</strong> was created by Keshav Shah and Shaurya Kumar for the <strong>2024 Lanier Regional Technology Competition</strong>.
                             Contact <strong>KeshavRShah@gmail.com</strong> or <strong>Kshaurya731@gmail.com</strong> for any issues with the website or any
                             other questions regarding the website.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-10 mb-2 c5">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Works Used</h5>
-                        <p class="card-text">
-                            All pieces of media are orginially created, or taken from the Bootstrap library.
                         </p>
                     </div>
                 </div>
@@ -178,7 +113,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
         integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
         crossorigin="anonymous"></script>
-    <script src="login.js"></script>
+    <script src="js/login.js"></script>
 </body>
 
 </html>

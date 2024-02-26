@@ -11,7 +11,7 @@ module.exports = {
     challengeSelect: path.resolve(__dirname, './src/challengeSelect.js')
   },
   output: {
-    path: path.resolve(__dirname, './build'),
+    path: path.resolve(__dirname, './build/js'),
     filename: '[name].js'
   }
 }

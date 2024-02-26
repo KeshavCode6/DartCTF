@@ -1,10 +1,5 @@
 const leaderboard = document.querySelector("#leaderboard-body");
-var filterIndex = 0;
 
-const filterToName = {
-    0:"Top Global",
-    1:"Top Country"
-}
 const showLeaderboard = (data) =>{
     for (var i = 0; i < Object.keys(data).length; i++) {
         
@@ -15,7 +10,6 @@ const showLeaderboard = (data) =>{
         <td>${data[username][0]}</td>
         <td>${username}</td>
         <td>${data[username][1]}</td>
-        <td>US</td>
         `
     
         const element = document.createElement("tr");
@@ -34,18 +28,6 @@ const UpdateLeaderboard = ()=>{
       console.error('Error checking authentication:', error);
     });
 }
-
-$("#editFilters").on("click", ()=>{
-    filterIndex+=1;
-    if(filterIndex>1){
-        filterIndex = 0
-    }
-    $("#editFilters").text(filterToName[filterIndex])
-
-    $("#leaderboard-body").empty()
-    UpdateLeaderboard();
-})
-
 
 $(document).ready(()=>{
     UpdateLeaderboard();

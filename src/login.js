@@ -9,14 +9,12 @@ const UpdateLoginbutton = ()=>{
         $("#login").removeAttr("data-toggle");
         $("#login").removeAttr("data-target");
         $("#login").attr("href", "/auth/logout")
-        console.log("in")
       } else {
         $("#dashboardLink").removeClass("nav-link")
         $("#dashboardLink").addClass("nav-link disabled")
         $("#login").text("Login")
         $("#login").attr("data-toggle", "modal");
         $("#login").attr("data-target", "#loginModal");
-        console.log("out")
         $("#login").removeAttr("href")
       }
     })

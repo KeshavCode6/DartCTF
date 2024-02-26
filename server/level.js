@@ -18,6 +18,19 @@ const levelSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  desc: {
+    type: String,
+    required: true,
+  },  
+  res: {
+    type: [String], 
+    default: [],
+    required: true,
+  },
+  difficulty: {
+    type: String,
+    required: true,
+  },    
   points: {
       type: Number,
       required: true,

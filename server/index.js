@@ -65,6 +65,10 @@ app.get("/challenge",auth.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "challenge.html"));
 });
 
+app.get("/tutorial", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "tutorial.html"));
+});
+
 app.get("/dashboard", auth.isLoggedIn, (req, res) => {
     User.findOne({ id: req.user.id }).then((usr) => {
         if (!usr) {
@@ -180,24 +184,23 @@ app.post("/getLevelHtml", auth.isLoggedIn, (req, res) => {
 })
 
 app.post('/editProfile', auth.isLoggedIn, upload.single("file"), (req, res) => {
-    let editFile;
-    let editUser;
-
+    
+    let update = {}
     if (req.file) {
-        editFile = req.file.path
+        update.picture = "../" + req.file.path
     }
     if (req.body.username.length > 1) {
-        editUser = req.body.username
+        update.display = req.body.username
     }
 
-    let update = {}
-    if (editFile) { update.picture = "../" + editFile }
-    if (editUser) { update.display = editUser }
     User.findOne({ "id": req.user.id }).then((user) => {
         if (user) {
             // Check if the user's profile picture exists before attempting to delete it
-            if (user.picture && fs.existsSync(user.picture)) {
-                fs.unlinkSync(user.picture);
+            const filePath = path.join(__dirname, '..', 'uploads', user.picture);
+            fs.unlinkSync(filePath);
+
+            if (user.picture && fs.existsSync(filePath) && Object.keys(update).includes("picture")) {
+                fs.unlinkSync(filePath);
             }
 
             User.findOneAndUpdate({ id: req.user.id }, update, { new: true }).then(updatedUser => {

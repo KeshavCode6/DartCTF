@@ -41,7 +41,7 @@ fetch('/getLevelHtml', {
 })
 .then(response => response.text())
 .then(data => {
-  $("#result").html(data);
+  $("#result").append(data);
 })
 
 $("#enterflag").on('click', ()=>{
@@ -58,7 +58,7 @@ $("#enterflag").on('click', ()=>{
         .then(data => {
           
           let color = "primary"
-          $("#result").empty()
+          $("#flagResult").empty()
           console.log(data)
 
           if(!data.success){
@@ -72,13 +72,22 @@ $("#enterflag").on('click', ()=>{
             </div>
           `
 
-          $("#result").append(alert)
+          $("#flagResult").append(alert)
         })
         .catch(error => {
           console.error('Error checking authentication:', error);
         });
     }
     else{
-        alert("Flag Input is empty")
+        $("#flagResult").empty()
+
+        const alert = `
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        Flag Input is empty!!
+        <button type="button" class="close btn btn-close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+        `
+
+        $("#flagResult").append(alert)
     }
 });

@@ -203,12 +203,12 @@ body {
 }
 
 
-#profile-card, 
-.card.h-60.b1, 
-.card.h-60.b2, 
-.card.h-60.b3, 
-.card.h-60.b4, 
-#chall-card  {
+#profile-card,
+.card.h-60.b1,
+.card.h-60.b2,
+.card.h-60.b3,
+.card.h-60.b4,
+#chall-card {
   opacity: 0;
   position: relative;
   animation: fadeInAnimation 0.5s forwards;
@@ -254,4 +254,31 @@ body {
   position: absolute;
   left: 25%;
   top: 50px;
+}
+
+#tutorialCard {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1111;
+  pointer-events: all;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: aliceblue;
+  width: 25vw;
+
+  .card-body {
+    text-align: center;
+  }
+
+  .card-title {
+    gap: 5px;
+  }
+
+  .card-text {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
 }

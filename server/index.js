@@ -69,6 +69,10 @@ app.get("/tutorial", auth.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "tutorial.html"));
 });
 
+app.get("/downloads/usb_from_jane.zip",auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/usb_from_jane.zip"));
+});
+
 app.get("/dashboard", auth.isLoggedIn, (req, res) => {
     User.findOne({ id: req.user.id }).then((usr) => {
         if (!usr) {
@@ -171,8 +175,8 @@ app.post("/getLevelData", auth.isLoggedIn, (req, res) => {
     Level.find({ "category": req.body["category"] }).then((levels) => {
         levels.forEach(level => {
             if (levels.url == req.body["url"]) {
-                level["flag"] = undefined
                 res.json(level);
+                return;
             }
         });
     })
@@ -196,8 +200,7 @@ app.post('/editProfile', auth.isLoggedIn, upload.single("file"), (req, res) => {
     User.findOne({ "id": req.user.id }).then((user) => {
         if (user) {
             // Check if the user's profile picture exists before attempting to delete it
-            const filePath = path.join(__dirname, '..', 'uploads', user.picture);
-            fs.unlinkSync(filePath);
+            fs.unlinkSync(user.picture);
 
             if (user.picture && fs.existsSync(filePath) && Object.keys(update).includes("picture")) {
                 fs.unlinkSync(filePath);
@@ -232,6 +235,37 @@ app.get('/getLoginInfo', auth.isLoggedIn, (req, res) => {
         res.json({ "username": user["username"], "display": user["display"], "picture": user["picture"], "points": points, "username": user["username"] });
     });
 
+})
+
+app.use("/crypto2pwd", auth.isLoggedIn, (req, res) => {
+    if (req.body.password == "niagrafalls17") {
+        Level.find({"category": "crypto", "challId": 2}).then(levels => {
+            res.json({
+                "flag": levels[0].flag
+            })
+        })
+    }
+
+    else {
+        res.json({
+            "flag": null
+        })
+    }
+})
+
+app.use("/crypto3pin", auth.isLoggedIn, (req, res) => {
+    if (parseInt(req.body.pin) == 10131) {
+        Level.find({"category": "crypto", "challId": 3}).then(levels => {
+            res.json({
+                "flag": levels[0].flag
+            })
+        })
+    }
+    else {
+        res.json({
+            "flag": null
+        })
+    }
 })
 
 // google auth

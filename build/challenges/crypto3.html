@@ -1,0 +1,84 @@
+<style>
+    .incorrectPin {
+        color: red;
+        font-weight: 600;
+    }
+
+    p {
+        font-size: 30px;
+    }
+
+    input {
+        border-radius: 15px;
+        border: 2px solid black;
+        font-size: 25px;
+    }
+
+    button {
+        border-radius: 15px;
+        border: 2px solid black;
+        background-color: rgb(29, 29, 29);
+        color: white;
+        font-size: 25px;
+    }
+
+    .card-text {
+        font-weight: 600;
+        letter-spacing: 3px;
+    }
+</style>
+
+<div class="col-md-10 mb-2 c1">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Addition</h5>
+            <br>
+            <p class="card-text">
+                &ensp;&ensp;1001011100011  <br>
+                + 1010010110000  <br>
+                ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  <br>
+                &ensp;&ensp;2011021210011 ???
+            </p>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Enter PIN</h5>
+            <br>
+            <form class="pinForm">
+                <input type="password" class="pin">
+                <button type="submit">Enter</button>
+            </form>
+            <span hidden class="incorrectPin">Incorrect PIN</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelector(".pinForm").addEventListener("submit", e => {
+
+        e.preventDefault();
+
+        const pin = document.querySelector(".pin");
+        const incorrectPin = document.querySelector(".incorrectPin");
+
+        fetch("/crypto3pin", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"pin": pin.value})
+        })
+        .then(res => {
+            res.json().then(json => {
+                if (json.flag != null) {
+                    incorrectPin.style.color ="green";
+                    incorrectPin.innerText = `Flag: ${json.flag}`;
+                }
+                incorrectPin.hidden = false;
+            })
+        })
+
+    })
+</script>

@@ -73,6 +73,16 @@ app.get("/downloads/usb_from_jane.zip",auth.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/usb_from_jane.zip"));
 });
 
+app.get("/downloads/corrupted.png", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/corrupted.png"));
+});
+
+app.get("/downloads/possible_keys.txt", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/possible_keys.txt"));
+});
+
+normalArray = ["4B", "22"]
+
 app.get("/dashboard", auth.isLoggedIn, (req, res) => {
     User.findOne({ id: req.user.id }).then((usr) => {
         if (!usr) {

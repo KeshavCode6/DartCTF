@@ -38,6 +38,8 @@ fetch('/getLevels', {
                     </div>
                 </div>
             </div>`;
+
+            totalLevels += 1;
     
             if (totalLevels >= 5){
                 $("#row2").append(levelSlot);
@@ -45,8 +47,6 @@ fetch('/getLevels', {
             else{
                 $("#row1").append(levelSlot);
             }
-    
-            totalLevels += 1;
         }
     });
 })

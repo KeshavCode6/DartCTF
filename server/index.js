@@ -10,6 +10,7 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const User = require('./user')
 const Level = require('./level')
+
 const challenges = {
     "cryptography": 4,
     "steganography": 4,
@@ -79,6 +80,38 @@ app.get("/downloads/corrupted.png", auth.isLoggedIn, (req, res) => {
 
 app.get("/downloads/possible_keys.txt", auth.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/possible_keys.txt"));
+});
+
+app.get("/downloads/street.png", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/street.png"));
+});
+
+app.get("/downloads/mountains.png", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/mountains.png"));
+});
+
+app.get("/downloads/beach.png", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/beach.png"));
+});
+
+app.get("/downloads/waterfall.png", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/waterfall.png"));
+});
+
+app.get("/downloads/capybaras.png", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/capybaras.png"));
+});
+
+app.get("/downloads/sky.png", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/sky.png"));
+});
+
+app.get("/downloads/cows.png", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/cows.png"));
+});
+
+app.get("/downloads/anagrams.txt", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/anagrams.txt"));
 });
 
 normalArray = ["4B", "22"]
@@ -182,15 +215,11 @@ app.post("/getLevels", auth.isLoggedIn, (req, res) => {
 })
 
 app.post("/getLevelData", auth.isLoggedIn, (req, res) => {
-    Level.find({ "category": req.body["category"] }).then((levels) => {
-        levels.forEach(level => {
-            if (levels.url == req.body["url"]) {
-                res.json(level);
-                return;
-            }
-        });
+    Level.find({ "category": req.body["category"], "challId": req.body["challId"] }).then((levels) => {
+        levels[0].flag = undefined;
+        res.json(levels[0]);
     })
-})
+});
 
 app.post("/getLevelHtml", auth.isLoggedIn, (req, res) => {
     const {board, chall} = req.body;

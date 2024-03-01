@@ -8,29 +8,29 @@ function capitalizeFirstLetter(string) {
 
 document.title = `${capitalizeFirstLetter(board)} C${challId}`;
 
-// fetch('/getLevelData', {
-//   method: 'POST',
-//   headers: {
-//       'Content-Type': 'application/json'
-//   },
-//   body: JSON.stringify({"category": board, "challId": challId})
-// })
-// .then(response => response.json())
-// .then(data => {
-//   console.log(data);
+fetch('/getLevelData', {
+  method: 'POST',
+  headers: {
+      'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({"category": board, "challId": challId})
+})
+.then(response => response.json())
+.then(data => {
+  console.log(data);
 
-//   const {name, challId, difficulty, desc, res} = data;
-//   $(".challname").text(`${capitalizeFirstLetter(board)} C${challId}`);
-//   $(".challdiff").text(`Difficulty: ${capitalizeFirstLetter(difficulty)}`);
-//   $("#challdesc").text(desc);
+  const {name, challId, difficulty, desc, res} = data;
+  $(".challname").text(`${capitalizeFirstLetter(board)} C${challId}`);
+  $(".challdiff").text(`Difficulty: ${capitalizeFirstLetter(difficulty)}`);
+  $("#challdesc").text(desc);
   
-//   for (var r of res) {
-//     const ulItem = document.createElement("li");
-//     ulItem.innerText = r;
-//     $(".challres").append(ulItem);
-//   }
+  for (var r of res) {
+    const ulItem = document.createElement("li");
+    ulItem.innerText = r;
+    $(".challres").append(ulItem);
+  }
 
-// })
+})
 
 fetch('/getLevelHtml', {
   method: 'POST',

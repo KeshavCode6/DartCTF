@@ -114,6 +114,10 @@ app.get("/downloads/anagrams.txt", auth.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/anagrams.txt"));
 });
 
+app.get("/downloads/toronto.png", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/toronto.png"));
+});
+
 normalArray = ["4B", "22"]
 
 app.get("/dashboard", auth.isLoggedIn, (req, res) => {
@@ -150,13 +154,11 @@ app.post("/enterFlag", auth.isLoggedIn, (req, res) => {
                     if (req.body.flag == level.flag) {
                         User.findOneAndUpdate(
                             { id: req.user.id },
-                            { $inc: { points: level.points }, $push: { solvedChallenges: req.body.url } },
+                            { $inc: { points: level.points }, $push: { solvedChallenges: url } },
                             { new: true }
                         ).then((error, success) => {
                             if (error) {
                                 console.log(error);
-                            } else {
-                                console.log(success);
                             }
                         });
                         res.json({ msg: `Bullsye! You got it! Click <a href="/dashboard">here</a> to go back to the dashboard`, success: true })

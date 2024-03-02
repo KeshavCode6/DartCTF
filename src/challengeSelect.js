@@ -1,6 +1,14 @@
 const urlParams = new URLSearchParams(window.location.search);
 const board = urlParams.get("board");
-const title = board.charAt(0).toUpperCase() + board.slice(1)
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+document.title = `${capitalizeFirstLetter(board)} Board - DartCTF`;
+
+$("#boardname").text(capitalizeFirstLetter(board));
+
 fetch('/getLevels', {
     method: 'POST',
     headers: {
@@ -14,7 +22,7 @@ fetch('/getLevels', {
     Object.keys(data).forEach(element => {
 
         if(element == "completion"){
-            $("#boardCompletion").text(`${data["completion"]}%`)
+            $("#boardCompletion").text(`${Math.floor(data["completion"])}%`)
         }
         else{
             let img = "unsolved";

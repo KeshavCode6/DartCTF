@@ -1,0 +1,93 @@
+<style>
+
+    .bankPage {
+        background-color: rgb(48, 48, 48);
+        text-align: center;
+        padding: 50px;
+        border-radius: 60px;
+        border: 5px solid rgb(8, 8, 8);
+    }
+
+    .balance {
+        font-size: 170px;
+        font-weight: 600;
+        color: rgb(0, 255, 0);
+    }
+
+    .balanceLabel {
+        font-size: 50px;
+        font-weight: 600;
+        color: white
+    }
+
+    .loggedInAs {
+        font-size: 30px;
+        margin-top: 50px;
+    }
+
+    .flagDisplay {
+        font-size: 30px;
+        margin-top: 20px;
+        color: green;
+    }
+
+</style>
+
+<div class="bankPage">
+
+    <span class="balanceLabel">Your Balance</span><br>
+
+    <span class="balance">
+        $28.54
+    </span>
+</div>
+
+<span class="loggedInAs">Logged in as <strong class="bankAccName">...</strong></span>
+<span hidden class="flagDisplay">Great job! Flag: <strong class="flag"></strong></span>
+
+<script>
+
+    (function() {
+
+        const bankAccName = document.querySelector(".bankAccName");
+        const balance = document.querySelector(".balance");
+
+        const flagDisplay = document.querySelector(".flagDisplay");
+        const flag = document.querySelector(".flag");
+
+        function getCookie(name) {
+            const cookieStr = RegExp(name + "=[^;]+").exec(document.cookie);
+            return decodeURIComponent(!!cookieStr ? cookieStr.toString().replace(/^[^=]+./,"") : "");
+        }
+
+        if (getCookie("bankUser") == 0) {
+
+            bankAccName.innerText = "Administrator";
+            balance.innerText = "$100,000.00";
+
+            fetch("/nellsCargo", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"cookieStr": document.cookie})
+            })
+            .then(res => {
+                res.json().then(json => {
+                    flag.innerText = json.flag;
+                    flagDisplay.hidden = false;
+                })
+            })
+
+        }
+
+        else {
+            bankAccName.innerText = "Jeffrey Kensington";
+            balance.innerText = "$28.54";
+        }
+
+        document.cookie = "bankUser=409264";
+
+    })()
+
+</script>

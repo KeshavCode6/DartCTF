@@ -5,6 +5,7 @@ const PORT = process.env.PORT;
 const express = require('express');
 const app = express();
 const fs = require('fs');
+const querystring = require('querystring');
 
 // mongodb
 const mongoose = require('mongoose');
@@ -116,6 +117,10 @@ app.get("/downloads/anagrams.txt", auth.isLoggedIn, (req, res) => {
 
 app.get("/downloads/toronto.png", auth.isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, "../build", "/challenges/downloads/toronto.png"));
+});
+
+app.get("/robots.txt", auth.isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "robots.txt"));
 });
 
 normalArray = ["4B", "22"]
@@ -270,9 +275,6 @@ app.get('/getLoginInfo', auth.isLoggedIn, (req, res) => {
         if (user) {
             points = user["points"];
         }
-        else {
-            console.log("user not found")
-        }
         res.json({ "username": user["username"], "display": user["display"], "picture": user["picture"], "points": points, "username": user["username"] });
     });
 
@@ -307,6 +309,24 @@ app.use("/crypto3pin", auth.isLoggedIn, (req, res) => {
             "flag": null
         })
     }
+})
+
+app.use("/nellsCargo", auth.isLoggedIn, (req, res) => {
+
+    if (querystring.parse(req.body.cookieStr).bankUser == 0) {
+
+        Level.find({"category": "web", "challId": 5}).then(levels => {
+            res.json({
+                "flag": levels[0].flag
+            })
+        })
+    }
+    else {
+        res.json({
+            "flag": null
+        })
+    }
+
 })
 
 // google auth

@@ -1,0 +1,8 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://dartctf.com
+
+# Hide From Users: fvyg}j[PEE8nBRyS8c{W,b3iOU33HR[;:tK|

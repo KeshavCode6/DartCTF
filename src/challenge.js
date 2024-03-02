@@ -17,7 +17,6 @@ fetch('/getLevelData', {
 })
 .then(response => response.json())
 .then(data => {
-  console.log(data);
 
   const {name, challId, difficulty, desc, res} = data;
   $(".challname").text(`${capitalizeFirstLetter(board)} C${challId}`);
@@ -59,7 +58,6 @@ $("#enterflag").on('click', ()=>{
           
           let color = "primary"
           $("#flagResult").empty()
-          console.log(data)
 
           if(!data.success){
             color = "success"

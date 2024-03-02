@@ -146,12 +146,12 @@ body {
 }
 
 .header {
-  margin: 50px;
+  margin: 30px;
   font-size: 48px;
 }
 
 .col-md-3.mb-2,
-.col-md-10.mb-2 {
+.col-md-10.mb-2, #homepageLogin {
   opacity: 0;
   position: relative;
   animation: fadeInAnimation 0.5s forwards;
@@ -202,6 +202,10 @@ body {
   color: rgb(100, 0, 0);
 }
 
+#homepageLogin {
+  animation-delay: 1s;
+  margin-top: 20px;
+}
 
 #profile-card,
 .card.h-60.b1,

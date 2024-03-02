@@ -246,9 +246,9 @@ app.post('/editProfile', auth.isLoggedIn, upload.single("file"), (req, res) => {
     User.findOne({ "id": req.user.id }).then((user) => {
         if (user) {
             // Check if the user's profile picture exists before attempting to delete it
-            fs.unlinkSync(user.picture);
+            const filePath = path.join(__dirname, '..', 'uploads', user.picture);
 
-            if (user.picture && fs.existsSync(filePath) && Object.keys(update).includes("picture")) {
+            if (Object.keys(update).includes("picture") && fs.existsSync(filePath)) {
                 fs.unlinkSync(filePath);
             }
 

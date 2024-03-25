@@ -146,7 +146,7 @@ app.get("/dashboard", auth.isLoggedIn, (req, res) => {
 
 //enter flag
 app.post("/enterFlag", auth.isLoggedIn, (req, res) => {
-    let url = "/"+req.body.url.split("//")[1].split("/")[1]
+    let url = "/"+req.body.url.split(".com/")[1]
     Level.findOne({ url: url}).then((level) => {
         if (level) {
             User.find({ id: req.user.id }).then((usr) => {

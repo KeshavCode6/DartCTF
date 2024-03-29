@@ -128,7 +128,19 @@ normalArray = ["4B", "22"]
 app.get("/dashboard", auth.isLoggedIn, (req, res) => {
     User.findOne({ id: req.user.id }).then((usr) => {
         if (!usr) {
-            const username = `${req.user.name.givenName.charAt(0).toLowerCase()}${req.user.name.familyName.charAt(0).toLowerCase()}.${Math.round(Math.random() * 999999)}`;
+
+            var givenName = req.user.name.givenName;
+            var familyName = req.user.name.familyName;
+
+            if (givenName == undefined) {
+                givenName = "";
+            }
+
+            if (familyName == undefined) {
+                familyName = "";
+            }
+            
+            const username = `${givenName.charAt(0).toLowerCase()}${familyName.charAt(0).toLowerCase()}.${Math.round(Math.random() * 999999)}`;
             const user = new User({
                 id: req.user.id,
                 username: username,
